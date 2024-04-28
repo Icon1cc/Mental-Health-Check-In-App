@@ -51,6 +51,7 @@ const WelcomeScreen = () => {
             height: 150,
             resizeMode: "contain",
             borderRadius: 100,
+            backgroundColor: "black",
           }}
         />
         <Text style={{ width: 180, fontSize: 24, paddingLeft: 10 }}>
