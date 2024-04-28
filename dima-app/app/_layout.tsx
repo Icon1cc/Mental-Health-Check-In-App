@@ -1,27 +1,22 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { StatusBar } from "expo-status-bar";
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack as ExpoStack } from "expo-router";
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import WelcomeScreen from './auth/welcomeScreen';
+import { createStackNavigator } from "@react-navigation/stack";
 
 export {
-  // Catch any errors thrown by the Layout component.
   ErrorBoundary,
 } from "expo-router";
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "(tabs)",
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -30,7 +25,6 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -53,12 +47,22 @@ export default function RootLayout() {
   );
 }
 
+const Stack = createStackNavigator();
+
 function RootLayoutNav() {
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-      </Stack>
-    </ThemeProvider>
+    <ConvexClientProvider>
+      <ThemeProvider value={DefaultTheme}>
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
+            options={{ headerShown: false }}
+          />
+          {/* ...other routes */}
+        </Stack.Navigator>
+      </ThemeProvider>
+      <StatusBar style="auto" />
+    </ConvexClientProvider>
   );
 }
