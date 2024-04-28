@@ -6,7 +6,7 @@ import { Stack as ExpoStack } from "expo-router";
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import WelcomeScreen from './auth/welcomeScreen';
+import WelcomeScreen from '../components/authentication/sign_up';
 import { createStackNavigator } from "@react-navigation/stack";
 
 export {
