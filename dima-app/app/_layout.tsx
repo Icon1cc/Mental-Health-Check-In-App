@@ -1,4 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { StatusBar } from "expo-status-bar";
 import {
   DarkTheme,
   DefaultTheme,
@@ -6,9 +7,9 @@ import {
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
+import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { SafeAreaView } from "react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -44,7 +45,12 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <ConvexClientProvider>
+      <RootLayoutNav />
+      <StatusBar style="auto" />
+    </ConvexClientProvider>
+  );
 }
 
 function RootLayoutNav() {
