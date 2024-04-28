@@ -1,17 +1,12 @@
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { StatusBar } from "expo-status-bar";
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack as ExpoStack } from "expo-router";
+import { Stack } from "expo-router";
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import WelcomeScreen from '../components/authentication/sign_up';
-import { createStackNavigator } from "@react-navigation/stack";
 
-export {
-  ErrorBoundary,
-} from "expo-router";
+export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",
@@ -21,8 +16,11 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    ...FontAwesome.font,
+    NiveauGrotesk: require("../assets/fonts/NiveauGroteskRegular.otf"),
+    "niv-b": require("../assets/fonts/NiveauGroteskBold.otf"),
+    "niv-l": require("../assets/fonts/NiveauGroteskLight.otf"),
+    "niv-li": require("../assets/fonts/NiveauGroteskLight-Italic.otf"),
+    "niv-r-smallcaps": require("../assets/fonts/NiveauGroteskRegular-SmallCaps.otf"),
   });
 
   useEffect(() => {
@@ -42,27 +40,17 @@ export default function RootLayout() {
   return (
     <ConvexClientProvider>
       <RootLayoutNav />
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </ConvexClientProvider>
   );
 }
 
-const Stack = createStackNavigator();
-
 function RootLayoutNav() {
   return (
-    <ConvexClientProvider>
-      <ThemeProvider value={DefaultTheme}>
-        <Stack.Navigator initialRouteName="Welcome">
-          <Stack.Screen
-            name="Welcome"
-            component={WelcomeScreen}
-            options={{ headerShown: false }}
-          />
-          {/* ...other routes */}
-        </Stack.Navigator>
-      </ThemeProvider>
-      <StatusBar style="auto" />
-    </ConvexClientProvider>
+    <ThemeProvider value={DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
+    </ThemeProvider>
   );
 }

@@ -7,7 +7,7 @@ import {
   ConvexReactClient,
 } from "convex/react";
 import * as SecureStore from "expo-secure-store"; // Securely store tokens in the keychain of the device.
-import Authentication from "@/components/authentication/sign_up";
+import Authentication from "@/components/authentication/sign-in";
 import { View } from "react-native";
 
 const convexUrl = process.env.EXPO_PUBLIC_CONVEX_URL!;
