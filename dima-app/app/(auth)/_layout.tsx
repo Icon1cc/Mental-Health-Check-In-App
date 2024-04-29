@@ -17,15 +17,36 @@ const Layout = () => {
           headerLeft: () => {
             return (
               <Link href={"/(auth)/"} asChild>
-                <Pressable>
-                  <Ionicons name="arrow-back-outline" size={24} color="black" />
+                <Pressable
+                  style={{
+                    width: 60,
+                    height: 60,
+                    paddingTop: 15,
+                  }}
+                >
+                  <Ionicons name="arrow-back-outline" size={30} color="black" />
                 </Pressable>
               </Link>
             );
           },
         }}
       />
-      <Stack.Screen name="sign-up" />
+      <Stack.Screen
+        name="sign-up"
+        options={{
+          headerTransparent: true,
+          headerTitle: "",
+          headerLeft: () => {
+            return (
+              <Link href={"/(auth)/"} asChild>
+                <Pressable style={{ width: 60, height: 60, paddingTop: 15 }}>
+                  <Ionicons name="arrow-back-outline" size={30} color="black" />
+                </Pressable>
+              </Link>
+            );
+          },
+        }}
+      />
       <Stack.Screen name="forgot" />
     </Stack>
   );
