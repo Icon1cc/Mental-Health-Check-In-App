@@ -88,9 +88,11 @@ const WelcomeScreen = () => {
         <Text style={{ fontFamily: "niv-l", fontSize: 16 }}>
           Don't have an account?
         </Text>
-        <Pressable>
-          <Text style={styles.login}>Register</Text>
-        </Pressable>
+        <Link href={"/(auth)/sign-up"} asChild>
+          <Pressable>
+            <Text style={styles.login}>Register</Text>
+          </Pressable>
+        </Link>
       </View>
     </View>
   );
