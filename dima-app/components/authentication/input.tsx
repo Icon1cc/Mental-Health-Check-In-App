@@ -18,6 +18,7 @@ const Input = ({
   secureTextEntry,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(secureTextEntry);
+  const keytype = title === "Email" ? "email-address" : "default";
   return (
     <View style={{ gap: 5 }}>
       <Text style={{ fontSize: 16, paddingLeft: 4 }}>{title}</Text>
@@ -28,6 +29,7 @@ const Input = ({
           value={value}
           onChangeText={onChangeText}
           style={styles.input}
+          keyboardType={keytype}
           secureTextEntry={showPassword}
         />
         {secureTextEntry ? (
