@@ -10,7 +10,7 @@ interface ButtonProps {
 const Button = ({ title, onPress }: ButtonProps) => {
   return (
     <Pressable onPress={onPress} style={styles.container}>
-      <Text>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
 };
@@ -18,5 +18,17 @@ const Button = ({ title, onPress }: ButtonProps) => {
 export default Button;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#314053",
+    borderRadius: 15,
+  },
+  text: {
+    color: "white",
+    fontFamily: "niv-r-smallcaps",
+    fontSize: 18,
+    letterSpacing: 2,
+  },
 });
