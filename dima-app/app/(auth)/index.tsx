@@ -12,11 +12,7 @@ import * as WebBrowser from "expo-web-browser";
 import React from "react";
 
 const Placeholder = require("@/assets/images/authentication/google.png");
-<<<<<<< Updated upstream
-const Placeholderlogo = require("@/assets/images/logo.png");
-=======
 const PlaceholderLogo = require("@/assets/images/logo.png");
->>>>>>> Stashed changes
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -50,11 +46,7 @@ const WelcomeScreen = () => {
     <View style={styles.container}>
       <View style={{ gap: 5 }}>
         <Image
-<<<<<<< Updated upstream
-          source={Placeholderlogo}
-=======
           source={PlaceholderLogo}
->>>>>>> Stashed changes
           style={{
             width: 150,
             height: 150,
