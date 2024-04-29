@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import React from "react";
 
 interface TitleHeaderProps {
@@ -8,12 +8,11 @@ interface TitleHeaderProps {
 
 const TitleHeader = ({ title, subtitle }: TitleHeaderProps) => {
   return (
-    <View>
-      <Text>TitleHeader</Text>
+    <View style={{ gap: 10, width: 300 }}>
+      <Text style={{ fontFamily: "niv-b", fontSize: 32 }}>{title}</Text>
+      <Text>{subtitle}</Text>
     </View>
   );
 };
 
 export default TitleHeader;
-
-const styles = StyleSheet.create({});

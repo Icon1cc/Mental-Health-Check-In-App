@@ -12,6 +12,7 @@ import * as WebBrowser from "expo-web-browser";
 import React from "react";
 
 const Placeholder = require("@/assets/images/authentication/google.png");
+const PlaceholderLogo = require("@/assets/images/logo.png");
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -45,7 +46,7 @@ const WelcomeScreen = () => {
     <View style={styles.container}>
       <View style={{ gap: 5 }}>
         <Image
-          source={require("../../assets/images/logo.png")}
+          source={PlaceholderLogo}
           style={{
             width: 150,
             height: 150,
@@ -85,10 +86,10 @@ const WelcomeScreen = () => {
 
       <View style={styles.footer}>
         <Text style={{ fontFamily: "niv-l", fontSize: 16 }}>
-          Already have an account?
+          Don't have an account?
         </Text>
         <Pressable>
-          <Text style={styles.login}>Login</Text>
+          <Text style={styles.login}>Register</Text>
         </Pressable>
       </View>
     </View>
