@@ -7,6 +7,9 @@ interface InputProps {
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
+  keyboardType?: "email-address" | "number-pad" | "default";
+  textAlign?: "center";
+  maxLength?: number;
   secureTextEntry: boolean;
 }
 
@@ -15,9 +18,13 @@ const Input = ({
   placeholder,
   value,
   onChangeText,
+  keyboardType,
+  textAlign,
+  maxLength,
   secureTextEntry,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(secureTextEntry);
+  const keytype = title === "Email" ? "email-address" : "default";
   return (
     <View style={{ gap: 5 }}>
       <Text style={{ fontSize: 16, paddingLeft: 4 }}>{title}</Text>
@@ -28,6 +35,9 @@ const Input = ({
           value={value}
           onChangeText={onChangeText}
           style={styles.input}
+          textAlign={textAlign || "left"}
+          maxLength={maxLength}
+          keyboardType={keyboardType || "default"}
           secureTextEntry={showPassword}
         />
         {secureTextEntry ? (
