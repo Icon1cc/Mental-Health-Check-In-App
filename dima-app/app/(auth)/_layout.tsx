@@ -8,7 +8,7 @@ import React from "react";
 const Layout = () => {
   return (
     <Stack screenOptions={{ headerShown: true }}>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
+      <Stack.Screen name="welcome" options={{ headerShown: false }} />
       <Stack.Screen
         name="sign-in"
         options={{
@@ -16,7 +16,7 @@ const Layout = () => {
           headerTitle: "",
           headerLeft: () => {
             return (
-              <Link href={"/(auth)/"} asChild>
+              <Link href={"/(auth)/welcome"} asChild>
                 <Pressable
                   style={{
                     width: 60,
@@ -38,7 +38,7 @@ const Layout = () => {
           headerTitle: "",
           headerLeft: () => {
             return (
-              <Link href={"/(auth)/"} asChild>
+              <Link href={"/(auth)/welcome"} asChild>
                 <Pressable style={{ width: 60, height: 60, paddingTop: 15 }}>
                   <Ionicons name="arrow-back-outline" size={30} color="black" />
                 </Pressable>

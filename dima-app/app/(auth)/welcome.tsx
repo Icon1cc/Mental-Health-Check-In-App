@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Pressable, Image } from "react-native";
 import { Fontisto } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 import { useOAuth } from "@clerk/clerk-expo";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
@@ -22,6 +22,7 @@ enum Strategy {
 
 const WelcomeScreen = () => {
   useWarmUpBrowser(); // Android to load up the screen faster.
+  const router = useRouter();
 
   const { startOAuthFlow: googleAuth } = useOAuth({
     strategy: Strategy.Google,
@@ -37,6 +38,7 @@ const WelcomeScreen = () => {
       // The user has successfully logged in.
       if (createdSessionId) {
         setActive!({ session: createdSessionId });
+        router.replace("/");
       }
     } catch (err) {
       console.error("OAuth error: ", err);

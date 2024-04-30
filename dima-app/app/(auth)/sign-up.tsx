@@ -7,14 +7,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
-  TextInput,
 } from "react-native";
 
 import Header from "@/components/authentication/title-header";
 import Input from "@/components/authentication/input";
 import Button from "@/components/authentication/button";
 
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import Colors from "@/constants/Colors";
 import { useSignUp } from "@clerk/clerk-expo";
 
@@ -22,13 +21,14 @@ import React, { useState } from "react";
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const router = useRouter();
 
   const [subtitle, setSubtitle] = useState(
     "Create an account to access all the features of BrainMe!"
   );
-  const [email, setEmail] = useState("alexandre.boving@gmail.com");
-  const [name, setName] = useState("Alexandre");
-  const [password, setPassword] = useState("@zecué.3.ZEveb!èèéoif");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
 
   const [pendingVerification, setPendingVerification] = useState(false);
   const [verificationCode, setVerificationCode] = useState("");
@@ -50,6 +50,9 @@ const SignUp = () => {
 
       // change the UI to our pending section.
       setPendingVerification(true);
+      setSubtitle(
+        "Please check your email for a verification code to complete the registration."
+      );
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
     }
@@ -67,6 +70,7 @@ const SignUp = () => {
       });
 
       await setActive({ session: completeSignUp.createdSessionId });
+      router.replace("/");
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2));
     }
@@ -84,21 +88,16 @@ const SignUp = () => {
             <Header title="Register" subtitle={subtitle} />
             {pendingVerification ? (
               <View style={{ gap: 40 }}>
-                <View style={{ gap: 5 }}>
-                  <Text style={{ fontSize: 16, paddingLeft: 4 }}>
-                    Verification Code
-                  </Text>
-                  <TextInput
-                    placeholder={"EX: 123456"}
-                    placeholderTextColor={"#A0A0A0"}
-                    value={verificationCode}
-                    onChangeText={setVerificationCode}
-                    textAlign="center"
-                    keyboardType="number-pad"
-                    maxLength={6}
-                    style={styles.input}
-                  />
-                </View>
+                <Input
+                  title="Verification Code"
+                  placeholder="EX: 123456"
+                  value={verificationCode}
+                  textAlign="center"
+                  maxLength={6}
+                  onChangeText={setVerificationCode}
+                  keyboardType="number-pad"
+                  secureTextEntry={false}
+                />
                 <Button title="SUBMIT" onPress={onPressVerify} />
               </View>
             ) : (
@@ -109,6 +108,7 @@ const SignUp = () => {
                     placeholder="Ex:abc@gmail.com"
                     value={email}
                     onChangeText={setEmail}
+                    keyboardType="email-address"
                     secureTextEntry={false}
                   />
                   <Input
@@ -132,7 +132,7 @@ const SignUp = () => {
                   <Text style={{ fontFamily: "niv-l", fontSize: 16 }}>
                     Already have an account?
                   </Text>
-                  <Link replace href={"/(auth)/sign-in"} asChild>
+                  <Link replace href={"/(auth)/welcome"} asChild>
                     <Pressable>
                       <Text style={styles.login}>Login</Text>
                     </Pressable>
@@ -155,12 +155,6 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
     paddingHorizontal: 15,
     gap: 40,
-  },
-  input: {
-    height: 50,
-    paddingHorizontal: 15,
-    borderRadius: 12,
-    borderWidth: 0.25,
   },
   footer: {
     flexDirection: "row",

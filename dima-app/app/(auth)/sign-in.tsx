@@ -13,13 +13,37 @@ import Header from "@/components/authentication/title-header";
 import Input from "@/components/authentication/input";
 import Button from "@/components/authentication/button";
 
-import React, { useState } from "react";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import Colors from "@/constants/Colors";
 
+import { useSignIn } from "@clerk/clerk-expo";
+
+import React, { useState } from "react";
+
 const SignIn = () => {
+  const { signIn, setActive, isLoaded } = useSignIn();
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const onSignInPress = async () => {
+    if (!isLoaded) {
+      return;
+    }
+
+    try {
+      const completeSignIn = await signIn.create({
+        identifier: email,
+        password,
+      });
+
+      await setActive({ session: completeSignIn.createdSessionId });
+      router.replace("/");
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -51,7 +75,7 @@ const SignIn = () => {
                   onChangeText={setPassword}
                   secureTextEntry={true}
                 />
-                <Link href={"/(auth)/forgot"} asChild>
+                <Link href={"/(auth)/welcome"} asChild>
                   <Pressable>
                     <Text
                       style={{
@@ -66,7 +90,7 @@ const SignIn = () => {
               </View>
             </View>
 
-            <Button title="LOGIN" onPress={() => {}} />
+            <Button title="LOGIN" onPress={onSignInPress} />
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>

@@ -7,6 +7,9 @@ interface InputProps {
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
+  keyboardType?: "email-address" | "number-pad" | "default";
+  textAlign?: "center";
+  maxLength?: number;
   secureTextEntry: boolean;
 }
 
@@ -15,6 +18,9 @@ const Input = ({
   placeholder,
   value,
   onChangeText,
+  keyboardType,
+  textAlign,
+  maxLength,
   secureTextEntry,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(secureTextEntry);
@@ -29,7 +35,9 @@ const Input = ({
           value={value}
           onChangeText={onChangeText}
           style={styles.input}
-          keyboardType={keytype}
+          textAlign={textAlign || "left"}
+          maxLength={maxLength}
+          keyboardType={keyboardType || "default"}
           secureTextEntry={showPassword}
         />
         {secureTextEntry ? (
