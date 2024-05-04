@@ -1,15 +1,10 @@
 import { Text } from "react-native";
-import { useConvexAuth } from "convex/react";
-import { Redirect, Stack, useRouter } from "expo-router";
-import React from "react";
 import { useUser } from "@clerk/clerk-expo";
+import { Redirect, Tabs } from "expo-router";
+import React from "react";
 
 export default function Layout() {
-  const router = useRouter();
   const { isLoaded, isSignedIn } = useUser();
-  console.log("Layout useUser: ", isLoaded, isSignedIn);
-  //const { isLoading, isAuthenticated } = useConvexAuth();
-  //console.log("Layout useConvex: ", isLoading, isAuthenticated);
 
   // We can keep the splack sceen open, or render a loading screen like we can do here.
   if (!isLoaded) {
@@ -21,8 +16,12 @@ export default function Layout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-    </Stack>
+    <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs.Screen name="index" />
+      <Tabs.Screen name="profile" />
+      <Tabs.Screen name="fast-quizz" />
+      <Tabs.Screen name="search" />
+      <Tabs.Screen name="upload" />
+    </Tabs>
   );
 }
