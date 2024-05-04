@@ -1,24 +1,28 @@
-import { Redirect } from "expo-router";
+import { Text } from "react-native";
 import { useConvexAuth } from "convex/react";
-import { Stack } from "expo-router";
+import { Redirect, Stack, useRouter } from "expo-router";
 import React from "react";
+import { useUser } from "@clerk/clerk-expo";
 
-const Layout = () => {
-  const { isLoading, isAuthenticated } = useConvexAuth();
+export default function Layout() {
+  const router = useRouter();
+  const { isLoaded, isSignedIn } = useUser();
+  console.log("Layout useUser: ", isLoaded, isSignedIn);
+  //const { isLoading, isAuthenticated } = useConvexAuth();
+  //console.log("Layout useConvex: ", isLoading, isAuthenticated);
 
-  if (isLoading) {
-    // We return a loading screen here.
+  // We can keep the splack sceen open, or render a loading screen like we can do here.
+  if (!isLoaded) {
+    return <Text>Loading...</Text>;
   }
 
-  if (!isAuthenticated) {
-    // We return the authenticated layout here.
-    return <Redirect href="/(auth)/welcome" />;
+  if (!isSignedIn) {
+    return <Redirect href={"/welcome"} />;
   }
+
   return (
     <Stack>
       <Stack.Screen name="index" options={{ headerShown: false }} />
     </Stack>
   );
-};
-
-export default Layout;
+}

@@ -1,11 +1,6 @@
 import { ClerkProvider, useAuth } from "@clerk/clerk-expo";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
-import {
-  AuthLoading,
-  Authenticated,
-  Unauthenticated,
-  ConvexReactClient,
-} from "convex/react";
+import { ConvexReactClient } from "convex/react";
 import * as SecureStore from "expo-secure-store"; // Securely store tokens in the keychain of the device.
 
 const convexUrl = process.env.EXPO_PUBLIC_CONVEX_URL!;
