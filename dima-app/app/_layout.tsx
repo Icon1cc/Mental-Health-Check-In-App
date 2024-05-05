@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Slot } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -41,6 +43,7 @@ export default function RootLayout() {
   return (
     <ConvexClientProvider>
       <RootLayoutNav />
+      <StatusBar style="dark" />
     </ConvexClientProvider>
   );
 }
@@ -48,8 +51,88 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <ThemeProvider value={DefaultTheme}>
-      <Slot />
-      <StatusBar style="dark" />
+      <Stack>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="welcome" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="sign-in"
+          options={{
+            headerTransparent: true,
+            headerTitle: "",
+            headerLeft: () => {
+              return (
+                <Link href="/welcome" asChild>
+                  <Pressable
+                    style={{
+                      width: 60,
+                      height: 60,
+                      paddingTop: 15,
+                    }}
+                  >
+                    <Ionicons
+                      name="arrow-back-outline"
+                      size={30}
+                      color="black"
+                    />
+                  </Pressable>
+                </Link>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="sign-up"
+          options={{
+            headerTransparent: true,
+            headerTitle: "",
+            headerLeft: () => {
+              return (
+                <Link href="/welcome" asChild>
+                  <Pressable
+                    style={{
+                      width: 60,
+                      height: 60,
+                      paddingTop: 15,
+                    }}
+                  >
+                    <Ionicons
+                      name="arrow-back-outline"
+                      size={30}
+                      color="black"
+                    />
+                  </Pressable>
+                </Link>
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="forgot"
+          options={{
+            headerTransparent: true,
+            headerTitle: "",
+            headerLeft: () => {
+              return (
+                <Link href="/sign-in" asChild>
+                  <Pressable
+                    style={{
+                      width: 60,
+                      height: 60,
+                      paddingTop: 15,
+                    }}
+                  >
+                    <Ionicons
+                      name="arrow-back-outline"
+                      size={30}
+                      color="black"
+                    />
+                  </Pressable>
+                </Link>
+              );
+            },
+          }}
+        />
+      </Stack>
     </ThemeProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import React, { useState } from "react";
 
@@ -24,7 +24,6 @@ const Input = ({
   secureTextEntry,
 }: InputProps) => {
   const [showPassword, setShowPassword] = useState(secureTextEntry);
-  const keytype = title === "Email" ? "email-address" : "default";
   return (
     <View style={{ gap: 5 }}>
       <Text style={{ fontSize: 16, paddingLeft: 4 }}>{title}</Text>
@@ -42,19 +41,13 @@ const Input = ({
         />
         {secureTextEntry ? (
           showPassword ? (
-            <MaterialIcons
-              name="visibility-off"
-              size={24}
-              color="black"
-              onPress={() => setShowPassword(!showPassword)}
-            />
+            <Pressable onPress={() => setShowPassword(!showPassword)}>
+              <MaterialIcons name="visibility-off" size={24} color="black" />
+            </Pressable>
           ) : (
-            <MaterialIcons
-              name="visibility"
-              size={24}
-              color="black"
-              onPress={() => setShowPassword(!showPassword)}
-            />
+            <Pressable onPress={() => setShowPassword(!showPassword)}>
+              <MaterialIcons name="visibility" size={24} color="black" />
+            </Pressable>
           )
         ) : null}
       </View>
