@@ -9,7 +9,13 @@ interface ButtonProps {
 
 const Button = ({ title, onPress }: ButtonProps) => {
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.container,
+        { backgroundColor: pressed ? "gray" : Colors.primary },
+      ]}
+    >
       <Text style={styles.text}>{title}</Text>
     </Pressable>
   );
@@ -22,7 +28,6 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#314053",
     borderRadius: 15,
   },
   text: {
