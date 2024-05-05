@@ -77,7 +77,7 @@ const SignIn = () => {
                   onChangeText={setPassword}
                   secureTextEntry={true}
                 />
-                <Link href={"/welcome"} asChild>
+                <Link href={"/forgot"} asChild>
                   <Pressable>
                     <Text
                       style={{
