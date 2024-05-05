@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Slot } from "expo-router";
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 
 import * as SplashScreen from "expo-splash-screen";
@@ -41,7 +41,6 @@ export default function RootLayout() {
   return (
     <ConvexClientProvider>
       <RootLayoutNav />
-      <StatusBar style="light" />
     </ConvexClientProvider>
   );
 }
@@ -49,10 +48,8 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <ThemeProvider value={DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <Slot />
+      <StatusBar style="dark" />
     </ThemeProvider>
   );
 }

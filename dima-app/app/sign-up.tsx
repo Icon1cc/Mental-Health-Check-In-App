@@ -132,7 +132,7 @@ const SignUp = () => {
                   <Text style={{ fontFamily: "niv-l", fontSize: 16 }}>
                     Already have an account?
                   </Text>
-                  <Link replace href={"/(auth)/welcome"} asChild>
+                  <Link replace href={"/welcome"} asChild>
                     <Pressable>
                       <Text style={styles.login}>Login</Text>
                     </Pressable>

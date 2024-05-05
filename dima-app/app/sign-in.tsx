@@ -39,9 +39,11 @@ const SignIn = () => {
       });
 
       await setActive({ session: completeSignIn.createdSessionId });
-      router.replace("/");
+      if (completeSignIn.createdSessionId) {
+        router.replace("/");
+      }
     } catch (err: any) {
-      console.log(err);
+      console.log(err, "Error: ", JSON.stringify(err, null, 2));
     }
   };
 
@@ -75,7 +77,7 @@ const SignIn = () => {
                   onChangeText={setPassword}
                   secureTextEntry={true}
                 />
-                <Link href={"/(auth)/welcome"} asChild>
+                <Link href={"/welcome"} asChild>
                   <Pressable>
                     <Text
                       style={{

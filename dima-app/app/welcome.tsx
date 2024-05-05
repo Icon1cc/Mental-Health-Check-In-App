@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, Pressable, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  Image,
+  SafeAreaView,
+} from "react-native";
 
 import { Fontisto } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
@@ -16,34 +23,28 @@ const PlaceholderLogo = require("@/assets/images/logo.png");
 
 WebBrowser.maybeCompleteAuthSession();
 
-enum Strategy {
-  Google = "oauth_google",
-}
-
 const WelcomeScreen = () => {
   useWarmUpBrowser(); // Android to load up the screen faster.
   const router = useRouter();
 
-  const { startOAuthFlow: googleAuth } = useOAuth({
-    strategy: Strategy.Google,
+  const { startOAuthFlow } = useOAuth({
+    strategy: "oauth_google",
   });
 
-  const onSelectAuth = async (strategy: Strategy) => {
-    const selectedAuth = {
-      [Strategy.Google]: googleAuth,
-    }[strategy];
-
+  const onAuth = async () => {
     try {
-      const { createdSessionId, setActive } = await selectedAuth();
-      // The user has successfully logged in.
+      const { createdSessionId, setActive } = await startOAuthFlow();
       if (createdSessionId) {
+        // The user has successfully logged in.
+        console.log("OAuth success: ", createdSessionId);
         setActive!({ session: createdSessionId });
         router.replace("/");
       }
     } catch (err) {
-      console.error("OAuth error: ", err);
+      console.error("OAuth error: ", err, JSON.stringify(err, null, 2));
     }
   };
+
   return (
     <View style={styles.container}>
       <View style={{ gap: 5 }}>
@@ -70,14 +71,11 @@ const WelcomeScreen = () => {
           Let’s Get Started...
         </Text>
         <View style={{ gap: 10 }}>
-          <Pressable
-            style={styles.button}
-            onPress={() => onSelectAuth(Strategy.Google)}
-          >
+          <Pressable style={styles.button} onPress={onAuth}>
             <Image source={Placeholder} style={{ width: 26, height: 26 }} />
             <Text style={{}}>Continue with Google</Text>
           </Pressable>
-          <Link href="/(auth)/sign-in" asChild>
+          <Link href="/sign-in" asChild>
             <Pressable style={styles.button}>
               <Fontisto name="email" size={24} color="black" />
               <Text style={{}}>Continue with Email</Text>
@@ -90,7 +88,7 @@ const WelcomeScreen = () => {
         <Text style={{ fontFamily: "niv-l", fontSize: 16 }}>
           Don't have an account?
         </Text>
-        <Link href={"/(auth)/sign-up"} asChild>
+        <Link href={"/sign-up"} asChild>
           <Pressable>
             <Text style={styles.login}>Register</Text>
           </Pressable>
