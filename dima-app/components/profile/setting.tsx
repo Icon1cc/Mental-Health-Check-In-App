@@ -1,16 +1,30 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Text, Switch, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import Colors from "@/constants/Colors";
+import React, { useState } from "react";
 
 interface SettingProps {
   title: string;
+  lever?: boolean;
 }
 
-const Setting = ({ title }: SettingProps) => {
+const Setting = ({ title, lever }: SettingProps) => {
+  const [isEnabled, setIsEnabled] = useState(false);
+
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 18 }}>{title}</Text>
-      <Ionicons name="chevron-forward" size={24} color="black" />
+      {lever ? (
+        <Switch
+          trackColor={{ false: "#767577", true: Colors.primary }}
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      ) : (
+        <Ionicons name="chevron-forward" size={24} color="black" />
+      )}
     </View>
   );
 };

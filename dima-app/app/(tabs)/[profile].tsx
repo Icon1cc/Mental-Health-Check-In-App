@@ -3,9 +3,14 @@ import Constants from "expo-constants";
 import React from "react";
 
 import Background from "@/components/profile/profile-background";
-import Setting from "@/components/profile/setting";
+import AccountSettings from "@/components/profile/account-settings";
+import More from "@/components/profile/more";
 
 const Placeholder = require("@/assets/images/profile/johnny.jpg");
+
+const Separator = () => {
+  return <View style={{ borderWidth: 0.3, borderColor: "#CACACA" }} />;
+};
 
 const Profile = () => {
   return (
@@ -16,16 +21,14 @@ const Profile = () => {
           <Image source={Placeholder} style={styles.image} />
           <Text style={{ fontSize: 18 }}>Alexandre Boving</Text>
         </View>
-        <View style={{ borderWidth: 0.25, borderColor: "#CACACA" }} />
-        <ScrollView contentContainerStyle={{ gap: 30, paddingVertical: 15 }}>
-          <Text style={{ color: "#ADADAD", fontSize: 18 }}>
-            Account Settings
-          </Text>
-          <Setting title="Edit Profile" />
-          <Setting title="Change password" />
-          <Setting title="Select another idea" />
-          <Setting title="Push notifications" />
-          <View style={{ borderWidth: 0.4, borderColor: "#CACACA" }} />
+        <Separator />
+        <ScrollView
+          contentContainerStyle={{ gap: 20, paddingTop: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <AccountSettings />
+          <Separator />
+          <More />
         </ScrollView>
       </View>
     </View>
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 10,
     paddingTop: 15,
-    paddingBottom: 25,
+    paddingBottom: 20,
     paddingHorizontal: 20,
   },
   image: {

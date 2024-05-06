@@ -19,8 +19,8 @@ export default function Layout() {
     <Tabs>
       <Tabs.Screen name="index" />
       <Tabs.Screen name="search" />
-      <Tabs.Screen name="fast-quizz" />
       <Tabs.Screen name="upload" />
+      <Tabs.Screen name="fast-quizz" />
       <Tabs.Screen name="[profile]" options={{ headerShown: false }} />
     </Tabs>
   );

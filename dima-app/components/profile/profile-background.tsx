@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
 import Constants from "expo-constants";
-import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 
