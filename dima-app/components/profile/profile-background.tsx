@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     height: 250,
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
-    backgroundColor: Colors.primary,
+    backgroundColor: "#367B62",
     borderBottomRightRadius: 30,
     borderBottomLeftRadius: 30,
   },
