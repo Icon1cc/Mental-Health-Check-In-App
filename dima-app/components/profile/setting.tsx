@@ -18,7 +18,7 @@ const Setting = ({ title, lever }: SettingProps) => {
       <Text style={{ fontSize: 18 }}>{title}</Text>
       {lever ? (
         <Switch
-          trackColor={{ false: "#767577", true: Colors.primary }}
+          trackColor={{ false: "#767577", true: Colors.secondary }}
           onValueChange={toggleSwitch}
           value={isEnabled}
         />

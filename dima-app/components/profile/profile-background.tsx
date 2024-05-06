@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import Constants from "expo-constants";
+import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 
@@ -25,7 +26,7 @@ const styles = StyleSheet.create({
     height: 250,
     paddingTop: Constants.statusBarHeight,
     paddingHorizontal: 15,
-    backgroundColor: "#367B62",
+    backgroundColor: Colors.primary,
     borderBottomRightRadius: 30,
     borderBottomLeftRadius: 30,
   },

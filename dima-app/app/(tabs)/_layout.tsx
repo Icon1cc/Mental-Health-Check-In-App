@@ -4,7 +4,7 @@ import { Redirect, Tabs } from "expo-router";
 import React from "react";
 
 export default function Layout() {
-  /*const { isLoaded, isSignedIn } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
 
   // We can keep the splack sceen open, or render a loading screen like we can do here.
   if (!isLoaded) {
@@ -13,7 +13,7 @@ export default function Layout() {
 
   if (!isSignedIn) {
     return <Redirect href={"/welcome"} />;
-  }*/
+  }
 
   return (
     <Tabs>

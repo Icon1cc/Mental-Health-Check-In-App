@@ -4,20 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 
 interface HeaderLeftProps {
-  backward: "/welcome" | "/sign-in";
+  backward: "/welcome" | "/sign-in" | "/(tabs)/profile";
+  style?: string;
 }
 
-const HeaderLeft = ({ backward }: HeaderLeftProps) => {
+const HeaderLeft = ({ backward, style }: HeaderLeftProps) => {
   return (
     <Link href={backward} asChild>
-      <Pressable
-        style={{
-          width: 60,
-          height: 60,
-          paddingTop: 15,
-        }}
-      >
-        <Ionicons name="arrow-back-outline" size={30} color="black" />
+      <Pressable>
+        <Ionicons name="arrow-back-outline" size={24} color={style} />
       </Pressable>
     </Link>
   );

@@ -4,3 +4,4 @@
 
 2. Fix the text appearing on the screens.
 3. Refactor front-end UI.
+4. Fix image-viewer component so that i can insert an alternative image in case the original one doesn't upload.
