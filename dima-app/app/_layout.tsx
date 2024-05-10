@@ -1,13 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { Pressable } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+
+import HeaderLeft from "@/components/root-layout/header-left";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -52,7 +52,8 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="accounts" options={{ headerShown: false }} />
         <Stack.Screen name="welcome" options={{ headerShown: false }} />
         <Stack.Screen
           name="sign-in"
@@ -60,23 +61,7 @@ function RootLayoutNav() {
             headerTransparent: true,
             headerTitle: "",
             headerLeft: () => {
-              return (
-                <Link href="/welcome" asChild>
-                  <Pressable
-                    style={{
-                      width: 60,
-                      height: 60,
-                      paddingTop: 15,
-                    }}
-                  >
-                    <Ionicons
-                      name="arrow-back-outline"
-                      size={30}
-                      color="black"
-                    />
-                  </Pressable>
-                </Link>
-              );
+              return <HeaderLeft backward="/welcome" />;
             },
           }}
         />
@@ -86,23 +71,7 @@ function RootLayoutNav() {
             headerTransparent: true,
             headerTitle: "",
             headerLeft: () => {
-              return (
-                <Link href="/welcome" asChild>
-                  <Pressable
-                    style={{
-                      width: 60,
-                      height: 60,
-                      paddingTop: 15,
-                    }}
-                  >
-                    <Ionicons
-                      name="arrow-back-outline"
-                      size={30}
-                      color="black"
-                    />
-                  </Pressable>
-                </Link>
-              );
+              return <HeaderLeft backward="/welcome" />;
             },
           }}
         />
@@ -112,23 +81,7 @@ function RootLayoutNav() {
             headerTransparent: true,
             headerTitle: "",
             headerLeft: () => {
-              return (
-                <Link href="/sign-in" asChild>
-                  <Pressable
-                    style={{
-                      width: 60,
-                      height: 60,
-                      paddingTop: 15,
-                    }}
-                  >
-                    <Ionicons
-                      name="arrow-back-outline"
-                      size={30}
-                      color="black"
-                    />
-                  </Pressable>
-                </Link>
-              );
+              return <HeaderLeft backward="/sign-in" />;
             },
           }}
         />

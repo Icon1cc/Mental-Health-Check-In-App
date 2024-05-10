@@ -16,12 +16,12 @@ export default function Layout() {
   }
 
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    <Tabs>
       <Tabs.Screen name="index" />
-      <Tabs.Screen name="profile" />
-      <Tabs.Screen name="fast-quizz" />
       <Tabs.Screen name="search" />
       <Tabs.Screen name="upload" />
+      <Tabs.Screen name="fast-quizz" />
+      <Tabs.Screen name="[profile]" options={{ headerShown: false }} />
     </Tabs>
   );
 }

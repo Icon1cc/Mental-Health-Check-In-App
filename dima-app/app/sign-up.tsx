@@ -4,8 +4,6 @@ import {
   SafeAreaView,
   StyleSheet,
   Pressable,
-  TouchableWithoutFeedback,
-  Keyboard,
   ScrollView,
 } from "react-native";
 
@@ -83,65 +81,63 @@ const SignUp = () => {
         automaticallyAdjustKeyboardInsets={true}
         showsVerticalScrollIndicator={false}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container}>
-            <Header title="Register" subtitle={subtitle} />
-            {pendingVerification ? (
-              <View style={{ gap: 40 }}>
+        <View style={styles.container}>
+          <Header title="Register" subtitle={subtitle} />
+          {pendingVerification ? (
+            <View style={{ gap: 40 }}>
+              <Input
+                title="Verification Code"
+                placeholder="EX: 123456"
+                value={verificationCode}
+                textAlign="center"
+                maxLength={6}
+                onChangeText={setVerificationCode}
+                keyboardType="number-pad"
+                secureTextEntry={false}
+              />
+              <Button title="SUBMIT" onPress={onPressVerify} />
+            </View>
+          ) : (
+            <>
+              <View style={{ gap: 30 }}>
                 <Input
-                  title="Verification Code"
-                  placeholder="EX: 123456"
-                  value={verificationCode}
-                  textAlign="center"
-                  maxLength={6}
-                  onChangeText={setVerificationCode}
-                  keyboardType="number-pad"
+                  title="Email"
+                  placeholder="Ex:abc@gmail.com"
+                  value={email}
+                  onChangeText={setEmail}
+                  keyboardType="email-address"
                   secureTextEntry={false}
                 />
-                <Button title="SUBMIT" onPress={onPressVerify} />
-              </View>
-            ) : (
-              <>
-                <View style={{ gap: 30 }}>
-                  <Input
-                    title="Email"
-                    placeholder="Ex:abc@gmail.com"
-                    value={email}
-                    onChangeText={setEmail}
-                    keyboardType="email-address"
-                    secureTextEntry={false}
-                  />
-                  <Input
-                    title="Your Name"
-                    placeholder="Ex:John Smith"
-                    value={name}
-                    onChangeText={setName}
-                    secureTextEntry={false}
-                  />
+                <Input
+                  title="Your Name"
+                  placeholder="Ex:John Smith"
+                  value={name}
+                  onChangeText={setName}
+                  secureTextEntry={false}
+                />
 
-                  <Input
-                    title="Your Password"
-                    placeholder="Insert your password here..."
-                    value={password}
-                    onChangeText={setPassword}
-                    secureTextEntry={true}
-                  />
-                </View>
-                <Button title="REGISTER" onPress={onSignUpPress} />
-                <View style={styles.footer}>
-                  <Text style={{ fontFamily: "niv-l", fontSize: 16 }}>
-                    Already have an account?
-                  </Text>
-                  <Link replace href={"/welcome"} asChild>
-                    <Pressable>
-                      <Text style={styles.login}>Login</Text>
-                    </Pressable>
-                  </Link>
-                </View>
-              </>
-            )}
-          </View>
-        </TouchableWithoutFeedback>
+                <Input
+                  title="Your Password"
+                  placeholder="Insert your password here..."
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry={true}
+                />
+              </View>
+              <Button title="REGISTER" onPress={onSignUpPress} />
+              <View style={styles.footer}>
+                <Text style={{ fontFamily: "niv-l", fontSize: 16 }}>
+                  Already have an account?
+                </Text>
+                <Link replace href={"/welcome"} asChild>
+                  <Pressable>
+                    <Text style={styles.login}>Login</Text>
+                  </Pressable>
+                </Link>
+              </View>
+            </>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

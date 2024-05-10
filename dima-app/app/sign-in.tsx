@@ -4,8 +4,6 @@ import {
   SafeAreaView,
   StyleSheet,
   Pressable,
-  TouchableWithoutFeedback,
-  Keyboard,
   ScrollView,
 } from "react-native";
 
@@ -54,47 +52,45 @@ const SignIn = () => {
         automaticallyAdjustKeyboardInsets={true}
         showsVerticalScrollIndicator={false}
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container}>
-            <Header
-              title="Log In"
-              subtitle="Login now to track all your expenses and income at a place!"
+        <View style={styles.container}>
+          <Header
+            title="Log In"
+            subtitle="Login now to track all your expenses and income at a place!"
+          />
+
+          <View style={{ gap: 30 }}>
+            <Input
+              title="Email"
+              placeholder="Ex:abc@gmail.com"
+              value={email}
+              onChangeText={setEmail}
+              secureTextEntry={false}
             />
-
-            <View style={{ gap: 30 }}>
+            <View style={{ gap: 15 }}>
               <Input
-                title="Email"
-                placeholder="Ex:abc@gmail.com"
-                value={email}
-                onChangeText={setEmail}
-                secureTextEntry={false}
+                title="Your Password"
+                placeholder="Insert your password here..."
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry={true}
               />
-              <View style={{ gap: 15 }}>
-                <Input
-                  title="Your Password"
-                  placeholder="Insert your password here..."
-                  value={password}
-                  onChangeText={setPassword}
-                  secureTextEntry={true}
-                />
-                <Link href={"/forgot"} asChild>
-                  <Pressable>
-                    <Text
-                      style={{
-                        color: Colors.secondary,
-                        textDecorationLine: "underline",
-                      }}
-                    >
-                      Forgot Password?
-                    </Text>
-                  </Pressable>
-                </Link>
-              </View>
+              <Link href={"/forgot"} asChild>
+                <Pressable>
+                  <Text
+                    style={{
+                      color: Colors.secondary,
+                      textDecorationLine: "underline",
+                    }}
+                  >
+                    Forgot Password?
+                  </Text>
+                </Pressable>
+              </Link>
             </View>
-
-            <Button title="LOGIN" onPress={onSignInPress} />
           </View>
-        </TouchableWithoutFeedback>
+
+          <Button title="LOGIN" onPress={onSignInPress} />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
