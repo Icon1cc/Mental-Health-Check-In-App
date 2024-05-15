@@ -6,18 +6,16 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
+import { Link, useRouter } from "expo-router";
+import { useSignUp } from "@clerk/clerk-expo";
+import React, { useState } from "react";
 
+import Colors from "@/constants/Colors";
 import Header from "@/components/authentication/title-header";
 import Input from "@/components/authentication/input";
 import Button from "@/components/authentication/button";
 
-import { Link, useRouter } from "expo-router";
-import Colors from "@/constants/Colors";
-import { useSignUp } from "@clerk/clerk-expo";
-
-import React, { useState } from "react";
-
-const SignUp = () => {
+export default function SignUp() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
 
@@ -141,15 +139,13 @@ const SignUp = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
-
-export default SignUp;
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 60,
-    paddingHorizontal: 15,
+    paddingHorizontal: 17,
     gap: 40,
   },
   footer: {
