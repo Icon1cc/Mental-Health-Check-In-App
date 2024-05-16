@@ -25,7 +25,9 @@ const SignOut = () => {
 const More = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ color: "#ADADAD", fontSize: 18 }}>More</Text>
+      <Text style={{ color: "gray", fontSize: 18, fontFamily: "niv-l" }}>
+        More
+      </Text>
       <Setting title="About us" />
       <Setting title="Privacy poliy" />
       <SignOut />
@@ -37,7 +39,7 @@ export default More;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 17,
     gap: 30,
   },
 });

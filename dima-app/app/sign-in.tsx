@@ -6,19 +6,16 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
+import { Link, useRouter } from "expo-router";
+import { useSignIn } from "@clerk/clerk-expo";
+import React, { useState } from "react";
 
+import Colors from "@/constants/Colors";
 import Header from "@/components/authentication/title-header";
 import Input from "@/components/authentication/input";
 import Button from "@/components/authentication/button";
 
-import { Link, useRouter } from "expo-router";
-import Colors from "@/constants/Colors";
-
-import { useSignIn } from "@clerk/clerk-expo";
-
-import React, { useState } from "react";
-
-const SignIn = () => {
+export default function SignIn() {
   const { signIn, setActive, isLoaded } = useSignIn();
   const router = useRouter();
 
@@ -76,14 +73,7 @@ const SignIn = () => {
               />
               <Link href={"/forgot"} asChild>
                 <Pressable>
-                  <Text
-                    style={{
-                      color: Colors.secondary,
-                      textDecorationLine: "underline",
-                    }}
-                  >
-                    Forgot Password?
-                  </Text>
+                  <Text style={styles.forgot}>Forgot Password?</Text>
                 </Pressable>
               </Link>
             </View>
@@ -94,15 +84,17 @@ const SignIn = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
-
-export default SignIn;
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 100,
-    paddingHorizontal: 15,
+    paddingHorizontal: 17,
     gap: 40,
+  },
+  forgot: {
+    color: Colors.secondary,
+    textDecorationLine: "underline",
   },
 });

@@ -15,7 +15,7 @@ const Setting = ({ title, lever }: SettingProps) => {
 
   return (
     <View style={styles.container}>
-      <Text style={{ fontSize: 18 }}>{title}</Text>
+      <Text style={{ fontSize: 18, fontFamily: "niv-l" }}>{title}</Text>
       {lever ? (
         <Switch
           trackColor={{ false: "#767577", true: Colors.secondary }}

@@ -11,9 +11,8 @@ import Header from "@/components/authentication/title-header";
 import Input from "@/components/authentication/input";
 import Button from "@/components/authentication/button";
 
-const Forgot = () => {
+export default function Forgot() {
   const [email, setEmail] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
   const [selectedOption, setSelectedOption] = useState<1 | 2 | 3>(3); // Initial option is 1.
@@ -75,14 +74,12 @@ const Forgot = () => {
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
-};
-
-export default Forgot;
+}
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 50,
-    paddingHorizontal: 15,
+    paddingHorizontal: 17,
     gap: 30,
   },
 });

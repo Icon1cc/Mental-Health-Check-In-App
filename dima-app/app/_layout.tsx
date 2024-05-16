@@ -7,7 +7,7 @@ import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
-import HeaderLeft from "@/components/root-layout/header-left";
+import HeaderLeft from "@/components/header-left-navigation/header-left";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -53,7 +53,6 @@ function RootLayoutNav() {
     <ThemeProvider value={DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="accounts" options={{ headerShown: false }} />
         <Stack.Screen name="welcome" options={{ headerShown: false }} />
         <Stack.Screen
           name="sign-in"
