@@ -1,14 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-const ChangePassword = () => {
+export default function Select() {
   return (
     <View>
-      <Text>ChangePassword</Text>
+      <Text>Select</Text>
     </View>
   );
-};
-
-export default ChangePassword;
+}
 
 const styles = StyleSheet.create({});

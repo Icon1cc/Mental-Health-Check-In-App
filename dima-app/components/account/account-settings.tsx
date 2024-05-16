@@ -7,19 +7,21 @@ import { Link } from "expo-router";
 const AccountSettings = () => {
   return (
     <View style={styles.container}>
-      <Text style={{ color: "#ADADAD", fontSize: 18 }}>Account Settings</Text>
-      <Link href={"/accounts/edit"} asChild>
+      <Text style={{ color: "gray", fontSize: 18, fontFamily: "niv-l" }}>
+        Account Settings
+      </Text>
+      <Link href={"/(tabs)/account/edit"} asChild>
         <Pressable>
           <Setting title="Edit Profile" />
         </Pressable>
       </Link>
-      <Link href={"/accounts/change-password"} asChild>
+      <Link href={"/(tabs)/account/change-password"} asChild>
         <Pressable>
-          <Setting title="Change password" />
+          <Setting title="Change Password" />
         </Pressable>
       </Link>
-      <Setting title="Select another idea" />
-      <Setting title="Push notifications" lever={true} />
+      <Setting title="Select Another Idea" />
+      <Setting title="Push Notifications" lever={true} />
     </View>
   );
 };
@@ -28,7 +30,8 @@ export default AccountSettings;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 17,
+    paddingTop: 17,
     gap: 30,
   },
 });
