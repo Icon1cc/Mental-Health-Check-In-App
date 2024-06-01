@@ -6,8 +6,10 @@ import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { useUser } from "@clerk/clerk-expo";
 import React, { useEffect } from "react";
 
+// This function clears the authentication session when the component is unmounted.
 WebBrowser.maybeCompleteAuthSession();
 
+// This enum defines the available authentication providers.
 enum Strategy {
   Google = "oauth_google",
   Apple = "oauth_apple",
@@ -15,16 +17,24 @@ enum Strategy {
 }
 
 export default function Welcome() {
-  useWarmUpBrowser(); // Android to load up the screen faster.
+  // This hook warms up the browser to make the OAuth flow faster.
+  useWarmUpBrowser();
+
+  // This hook provides the router object, which allows you to navigate between screens.
   const router = useRouter();
+
+  // This hook provides information about the user's authentication state.
   const { isLoaded, isSignedIn } = useUser();
 
+  // This hook initializes the OAuth flow for each provider.
   const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
   const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
   const { startOAuthFlow: facebookAuth } = useOAuth({
     strategy: "oauth_facebook",
   });
 
+  // This function is called when the user selects an authentication provider.
+  // It starts the OAuth flow for the selected provider.
   const onSelectAuth = async (strategy: Strategy) => {
     const selectedAuth = {
       [Strategy.Google]: googleAuth,
@@ -43,6 +53,8 @@ export default function Welcome() {
     }
   };
 
+  // This effect redirects the user to the home screen if they are already signed in.
+  // It runs when the user's authentication state changes.
   useEffect(() => {
     if (isLoaded && isSignedIn) {
       router.push("/");

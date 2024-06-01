@@ -7,14 +7,19 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import Splash from "@/components/splash-screen";
+import Loading from "@/components/loading-screen";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    NiveauGroteskLight: require("../assets/fonts/NiveauGroteskLight.otf"),
+    NiveauGroteskLightItalic: require("../assets/fonts/NiveauGroteskLight-Italic.otf"),
+    NiveauGrotesk: require("../assets/fonts/NiveauGroteskRegular.otf"),
+    NiveauGroteskRegularSmallcaps: require("../assets/fonts/NiveauGroteskRegular-SmallCaps.otf"),
+    NiveauGroteskMedium: require("../assets/fonts/NiveauGroteskMedium.otf"),
+    NiveauGroteskBold: require("../assets/fonts/NiveauGroteskBold.otf"),
     Pacifico: Pacifico_400Regular,
   });
 

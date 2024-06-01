@@ -4,25 +4,26 @@ import { Redirect } from "expo-router";
 import { Tabs } from "expo-router";
 import React from "react";
 
-import SplashScreen from "@/components/splash-screen";
+import Loading from "@/components/loading-screen";
 
 export default function Layout() {
+  // This hook provides information about the user's authentication state.
   const { isLoaded, isSignedIn } = useUser();
-
-  console.log("isLoaded", isLoaded);
-  console.log("isSignedIn", isSignedIn);
 
   // Render a loading/splash screen while Clerk is loading
   if (!isLoaded) {
-    return <SplashScreen />;
+    return <Loading />;
   }
 
+  // Redirect to the welcome screen if the user is not signed in
   if (!isSignedIn) {
     return <Redirect href={"/welcome"} />;
   }
   return (
     <Tabs>
       <Tabs.Screen name="index" options={{ headerShown: false }} />
+      <Tabs.Screen name="leaderboard" options={{ headerShown: false }} />
+      <Tabs.Screen name="profile" options={{ headerShown: false }} />
     </Tabs>
   );
 }
