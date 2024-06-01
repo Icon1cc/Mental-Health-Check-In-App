@@ -1,11 +1,13 @@
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Pacifico_400Regular, useFonts } from "@expo-google-fonts/pacifico";
-import { Stack } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
+
+import Splash from "@/components/splash-screen";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,11 +31,9 @@ export default function RootLayout() {
   return (
     <ConvexClientProvider>
       <ThemeProvider value={DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-        </Stack>
+        <Slot />
       </ThemeProvider>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
     </ConvexClientProvider>
   );
 }
