@@ -5,12 +5,10 @@ import React from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
+import SplashScreen from "@/components/splash-screen";
+
 export default function Home() {
   const addUser = useMutation(api.user.addUser);
 
-  return (
-    <SafeAreaView>
-      <Text>Home</Text>
-    </SafeAreaView>
-  );
+  return <SplashScreen />;
 }
