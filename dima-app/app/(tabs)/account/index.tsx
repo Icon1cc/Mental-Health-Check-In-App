@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     height: 250,
-    backgroundColor: Colors.primary,
-    borderBottomRightRadius: 30,
-    borderBottomLeftRadius: 30,
+    backgroundColor: "#5260B6",
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
   },
   container: {
     flex: 1,

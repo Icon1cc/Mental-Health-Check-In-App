@@ -1,10 +1,9 @@
-import { StatusBar } from "expo-status-bar";
+import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
-import { ConvexClientProvider } from "@/providers/convex-client-providers";
-
-import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import HeaderLeft from "@/components/header-left-navigation/header-left";

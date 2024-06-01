@@ -10,7 +10,7 @@ export default function Layout() {
       screenOptions={{
         headerTransparent: true,
         headerStyle: {
-          backgroundColor: Colors.primary,
+          backgroundColor: "#5260B6",
         },
         headerTitleStyle: {
           color: "white",

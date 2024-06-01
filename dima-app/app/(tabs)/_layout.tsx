@@ -12,9 +12,9 @@ export default function Layout() {
     return <Text>Loading...</Text>;
   }
 
-  if (!isSignedIn) {
+  /*if (!isSignedIn) {
     return <Redirect href={"/welcome"} />;
-  }
+  }*/
 
   return (
     <Tabs
