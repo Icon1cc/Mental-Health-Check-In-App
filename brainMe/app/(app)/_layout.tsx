@@ -5,18 +5,15 @@ import { Tabs } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 
+SplashScreen.preventAutoHideAsync();
+
 export default function Layout() {
   // This hook provides information about the user's authentication state.
   const { isLoaded, isSignedIn } = useUser();
 
-  // Prevent the splash screen from hiding when the app is not loaded
-  if (!isLoaded) {
-    SplashScreen.preventAutoHideAsync();
-  }
-
   // Redirect to the welcome screen if the user is not signed in
   if (!isSignedIn) {
-    return <Redirect href={"/welcome"} />;
+    return <Redirect href={"/sign-up"} />;
   }
 
   // Hide the splash screen when the app is loaded
