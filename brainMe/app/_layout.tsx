@@ -7,12 +7,11 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import Loading from "@/components/loading-screen";
-
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  // Load the app's fonts.
   const [loaded] = useFonts({
     NiveauGroteskLight: require("../assets/fonts/NiveauGroteskLight.otf"),
     NiveauGroteskLightItalic: require("../assets/fonts/NiveauGroteskLight-Italic.otf"),
@@ -23,6 +22,7 @@ export default function RootLayout() {
     Pacifico: Pacifico_400Regular,
   });
 
+  // Hide the splash screen when the app is loaded.
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
@@ -38,7 +38,7 @@ export default function RootLayout() {
       <ThemeProvider value={DefaultTheme}>
         <Slot />
       </ThemeProvider>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
     </ConvexClientProvider>
   );
 }
