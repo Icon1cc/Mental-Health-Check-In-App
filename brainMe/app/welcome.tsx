@@ -1,10 +1,20 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import { Link, useRouter } from "expo-router";
-import { useOAuth } from "@clerk/clerk-expo";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import React, { useEffect, useState } from "react";
+
+// These imports are required to use the components in this file.
+import Header from "@/components/auth/header";
+import Input from "@/components/auth/input";
+import Separator from "@/components/auth/separator";
+import AuthButton from "@/components/auth/auth-button";
+import Button from "@/components/auth/button";
+import Footer from "@/components/auth/footer";
+
+// This import is required to use the OAuth flow.
 import * as WebBrowser from "expo-web-browser";
+import { useOAuth, useUser, useSignIn } from "@clerk/clerk-expo";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
-import { useUser } from "@clerk/clerk-expo";
-import React, { useEffect } from "react";
 
 // This function clears the authentication session when the component is unmounted.
 WebBrowser.maybeCompleteAuthSession();
@@ -17,14 +27,23 @@ enum Strategy {
 }
 
 export default function Welcome() {
+  // This hook provides the safe area insets, which allows you to avoid the status bar.
+  const insets = useSafeAreaInsets();
+
+  // This hook provides the signIn function, which allows you to sign in the user.
+  // It also provides the setActive function, which allows you to set the active session.
+  const { signIn, setActive, isLoaded } = useSignIn();
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+
+  // This hook provides information about the user's authentication state.
+  const { isSignedIn } = useUser();
+
   // This hook warms up the browser to make the OAuth flow faster.
   useWarmUpBrowser();
 
   // This hook provides the router object, which allows you to navigate between screens.
   const router = useRouter();
-
-  // This hook provides information about the user's authentication state.
-  const { isLoaded, isSignedIn } = useUser();
 
   // This hook initializes the OAuth flow for each provider.
   const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
@@ -53,6 +72,25 @@ export default function Welcome() {
     }
   };
 
+  // This function is called when the user presses the sign in button.
+  const onSignInPress = async () => {
+    if (!isLoaded) {
+      return;
+    }
+
+    try {
+      const completeSignIn = await signIn.create({
+        identifier: emailAddress,
+        password,
+      });
+      // This is an important step,
+      // This indicates the user is signed in
+      await setActive({ session: completeSignIn.createdSessionId });
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+
   // This effect redirects the user to the home screen if they are already signed in.
   // It runs when the user's authentication state changes.
   useEffect(() => {
@@ -62,15 +100,52 @@ export default function Welcome() {
   }, [isLoaded, isSignedIn]);
 
   return (
-    <View style={styles.container}>
-      <Pressable
-        style={styles.button}
-        onPress={() => {
-          onSelectAuth(Strategy.Google);
-        }}
+    <View
+      style={{
+        flex: 1,
+        paddingTop: insets.top,
+      }}
+    >
+      <Header
+        title="BrainMe"
+        subtitle="Quizz your knowledge, share your wisdom!"
+      />
+      <ScrollView
+        automaticallyAdjustKeyboardInsets={true}
+        showsVerticalScrollIndicator={false}
+        style={styles.container}
+        contentContainerStyle={{ gap: 34 }}
       >
-        <Text>Log in</Text>
-      </Pressable>
+        <Input
+          title="Email"
+          placeholder="winner@email.com"
+          keyboardType="email-address"
+          onChangeText={setEmailAddress}
+        />
+        <Input
+          title="Your password"
+          placeholder="Insert password..."
+          secureTextEntry
+          onChangeText={setPassword}
+        />
+        <Separator />
+        <View style={styles.authContainer}>
+          <AuthButton
+            image={"google"}
+            onPress={() => onSelectAuth(Strategy.Google)}
+          />
+          <AuthButton
+            image={"facebook"}
+            onPress={() => onSelectAuth(Strategy.Facebook)}
+          />
+          <AuthButton
+            image={"apple"}
+            onPress={() => onSelectAuth(Strategy.Apple)}
+          />
+        </View>
+        <Button text="LOGIN" onPress={onSignInPress} />
+        <Footer text="Already have an account?" link="Sign up" />
+      </ScrollView>
     </View>
   );
 }
@@ -78,12 +153,14 @@ export default function Welcome() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: "white",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 17,
+    paddingTop: 51,
   },
-  button: {
-    backgroundColor: "red",
-    padding: 10,
-    borderRadius: 5,
+  authContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });

@@ -1,18 +1,23 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-export default function Header() {
+interface HeaderProps {
+  title: string;
+  subtitle: string;
+}
+
+export default function Header({ title, subtitle }: HeaderProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign up now</Text>
-      <Text style={styles.subtitle}>Join BrainMe and invite friends</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.subtitle}>{subtitle}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 17,
+    paddingVertical: 51,
     alignItems: "center",
     gap: 10,
   },

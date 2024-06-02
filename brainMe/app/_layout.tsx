@@ -1,7 +1,8 @@
 import { ConvexClientProvider } from "@/providers/convex-client-providers";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { Pacifico_400Regular, useFonts } from "@expo-google-fonts/pacifico";
-import { Slot, Stack } from "expo-router";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -35,10 +36,16 @@ export default function RootLayout() {
 
   return (
     <ConvexClientProvider>
-      <ThemeProvider value={DefaultTheme}>
-        <Slot />
-      </ThemeProvider>
-      <StatusBar style="light" />
+      <SafeAreaProvider>
+        <ThemeProvider value={DefaultTheme}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(app)" />
+            <Stack.Screen name="welcome" />
+            <Stack.Screen name="sign-up" />
+          </Stack>
+        </ThemeProvider>
+        <StatusBar style="light" />
+      </SafeAreaProvider>
     </ConvexClientProvider>
   );
 }
