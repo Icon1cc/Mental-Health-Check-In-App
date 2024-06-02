@@ -13,7 +13,7 @@ export default function Layout() {
 
   // Redirect to the welcome screen if the user is not signed in
   if (!isSignedIn) {
-    return <Redirect href={"/sign-up"} />;
+    return <Redirect href={"/welcome"} />;
   }
 
   // Hide the splash screen when the app is loaded

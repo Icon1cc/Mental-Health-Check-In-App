@@ -1,67 +1,72 @@
-import {
-  View,
-  ScrollView,
-  Text,
-  SafeAreaView,
-  StyleSheet,
-  Pressable,
-} from "react-native";
-import { useOAuth } from "@clerk/clerk-expo";
-import * as WebBrowser from "expo-web-browser";
-import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
-import { useUser } from "@clerk/clerk-expo";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
+// These imports are required to use the components in this file.
 import Header from "@/components/auth/header";
 import Input from "@/components/auth/input";
-import Separator from "@/components/auth/separator";
-import AuthButton from "@/components/auth/auth-button";
+import Footer from "@/components/auth/footer";
+import Button from "@/components/auth/button";
 
-// This function clears the authentication session when the component is unmounted.
-WebBrowser.maybeCompleteAuthSession();
+// This import is required to use the user hook.
+import { useUser, useSignUp } from "@clerk/clerk-expo";
 
-// This enum defines the available authentication providers.
-enum Strategy {
-  Google = "oauth_google",
-  Apple = "oauth_apple",
-  Facebook = "oauth_facebook",
-}
+export default function Welcome() {
+  // This hook provides the safe area insets, which allows you to avoid the status bar.
+  const insets = useSafeAreaInsets();
 
-export default function SignUp() {
-  // This hook warms up the browser to make the OAuth flow faster.
-  useWarmUpBrowser();
+  // This hook provides functions and state for signing up.
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const [username, setUsername] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [pendingVerification, setPendingVerification] = useState(true);
+  const [code, setCode] = useState("");
+
+  // This hook provides information about the user's authentication state.
+  const { isSignedIn } = useUser();
 
   // This hook provides the router object, which allows you to navigate between screens.
   const router = useRouter();
 
-  // This hook provides information about the user's authentication state.
-  const { isLoaded, isSignedIn } = useUser();
-
-  // This hook initializes the OAuth flow for each provider.
-  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: "oauth_google" });
-  const { startOAuthFlow: appleAuth } = useOAuth({ strategy: "oauth_apple" });
-  const { startOAuthFlow: facebookAuth } = useOAuth({
-    strategy: "oauth_facebook",
-  });
-
-  // This function is called when the user selects an authentication provider.
-  // It starts the OAuth flow for the selected provider.
-  const onSelectAuth = async (strategy: Strategy) => {
-    const selectedAuth = {
-      [Strategy.Google]: googleAuth,
-      [Strategy.Apple]: appleAuth,
-      [Strategy.Facebook]: facebookAuth,
-    }[strategy];
+  // start the sign up process.
+  const onSignUpPress = async () => {
+    if (!isLoaded) {
+      return;
+    }
 
     try {
-      const { createdSessionId, setActive } = await selectedAuth();
+      await signUp.create({
+        username,
+        emailAddress,
+        password,
+      });
 
-      if (createdSessionId) {
-        setActive!({ session: createdSessionId });
-      }
-    } catch (err) {
-      console.error("OAuth error", err);
+      // send the email.
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+      // change the UI to our pending section.
+      setPendingVerification(true);
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2));
+    }
+  };
+
+  // This verifies the user using email code that is delivered.
+  const onPressVerify = async () => {
+    if (!isLoaded) {
+      return;
+    }
+
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({
+        code,
+      });
+
+      await setActive({ session: completeSignUp.createdSessionId });
+    } catch (err: any) {
+      console.error(JSON.stringify(err, null, 2));
     }
   };
 
@@ -74,43 +79,56 @@ export default function SignUp() {
   }, [isLoaded, isSignedIn]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#024959", gap: 17 }}>
-      <Header />
+    <View style={{ flex: 1, paddingTop: insets.top }}>
+      <Header title="Sign up now" subtitle="Join BrainMe and invite friends" />
       <ScrollView
         automaticallyAdjustKeyboardInsets={true}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.contentContainer}
         style={styles.container}
+        contentContainerStyle={{ gap: 34 }}
       >
-        <Input
-          title="Email"
-          placeholder="winner@email.com"
-          keyboardType="email-address"
-        />
-        <Input title="Your username" placeholder="Rookie123" />
-        <Input title="Your password" placeholder="*****************" />
-        <Separator />
-        <View style={styles.authContainer}>
-          <AuthButton
-            image="google"
-            onPress={() => onSelectAuth(Strategy.Google)}
-          />
-          <AuthButton
-            image="facebook"
-            onPress={() => onSelectAuth(Strategy.Facebook)}
-          />
-          <AuthButton
-            image="apple"
-            onPress={() => onSelectAuth(Strategy.Apple)}
-          />
-        </View>
-        <Pressable style={styles.pressable}>
-          <Text style={{ color: "white", fontSize: 20, letterSpacing: 2 }}>
-            Sign up
-          </Text>
-        </Pressable>
+        {!pendingVerification ? (
+          <>
+            <Input
+              title="Email"
+              placeholder="winner@email.com"
+              keyboardType="email-address"
+              onChangeText={setEmailAddress}
+            />
+            <Input
+              title="Your username"
+              placeholder="Rookie"
+              onChangeText={setUsername}
+            />
+            <Input
+              title="Password"
+              placeholder="Insert password..."
+              secureTextEntry
+              onChangeText={setPassword}
+            />
+            <Button text="SIGN UP" onPress={onSignUpPress} />
+            <Footer text="Already have an account?" />
+          </>
+        ) : (
+          <>
+            <Text>
+              Please, insert the verification code we provided on your email
+              address.
+            </Text>
+            <Input
+              title="Verification code"
+              placeholder="Insert code..."
+              keyboardType="numeric"
+              textAlign="center"
+              maxlength={6}
+              onChangeText={setCode}
+            />
+            <Button text="VERIFY" onPress={onPressVerify} />
+            <Footer text="Already have an account?" />
+          </>
+        )}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -120,22 +138,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-  },
-  contentContainer: {
     paddingHorizontal: 17,
-    paddingTop: 34,
-    gap: 34,
-  },
-  authContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  pressable: {
-    height: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#024959",
-    borderRadius: 15,
+    paddingTop: 51,
   },
 });
