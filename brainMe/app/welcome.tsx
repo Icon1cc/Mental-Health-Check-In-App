@@ -8,7 +8,7 @@ import Header from "@/components/auth/header";
 import Input from "@/components/auth/input";
 import Separator from "@/components/auth/separator";
 import AuthButton from "@/components/auth/auth-button";
-import Button from "@/components/auth/button";
+import Button from "@/components/button";
 import Footer from "@/components/auth/footer";
 
 // This import is required to use the OAuth flow.
