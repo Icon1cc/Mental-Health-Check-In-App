@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import Header from "@/components/auth/header";
 import Input from "@/components/auth/input";
 import Footer from "@/components/auth/footer";
-import Button from "@/components/auth/button";
+import Button from "@/components/button";
 
 // This import is required to use the user hook.
 import { useUser, useSignUp } from "@clerk/clerk-expo";
