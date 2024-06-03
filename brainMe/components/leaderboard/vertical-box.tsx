@@ -41,8 +41,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 5,
-    borderWidth: 1,
-    borderColor: "#D9D9D9",
     borderRadius: 12,
+    backgroundColor: "white",
   },
 });

@@ -31,11 +31,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 17,
-    paddingHorizontal: 17,
     height: 60,
-    borderWidth: 1,
     borderRadius: 12,
-    borderColor: "#D9D9D9",
+    paddingHorizontal: 17,
+    backgroundColor: "white",
   },
   position: {
     fontFamily: "NiveauGroteskBold",

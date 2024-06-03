@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
 import { Redirect } from "expo-router";
 import { Tabs } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { StatusBar } from "expo-status-bar";
+import { Entypo, FontAwesome5 } from "@expo/vector-icons";
 import React, { useEffect } from "react";
 
 SplashScreen.preventAutoHideAsync();
@@ -24,27 +24,29 @@ export default function Layout() {
     }
   }, [isLoaded]);
   return (
-    <Tabs>
-      <Tabs.Screen name="index" options={{ headerShown: false }} />
+    <Tabs
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+      }}
+    >
+      <Tabs.Screen name="index" />
       <Tabs.Screen
         name="leaderboard"
         options={{
-          headerTitle: () => {
-            return <Text style={styles.title}>Leaderboard</Text>;
-          },
-          headerStyle: {
-            shadowColor: "transparent",
-          },
+          tabBarIcon: ({ color }) => (
+            <Entypo name="bar-graph" color={color} size={24} />
+          ),
         }}
       />
-      <Tabs.Screen name="profile" options={{ headerShown: false }} />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="user-alt" color={color} size={24} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontFamily: "Pacifico",
-    fontSize: 24,
-  },
-});
