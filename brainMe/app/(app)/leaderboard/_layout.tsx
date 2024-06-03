@@ -8,6 +8,9 @@ const Layout = () => {
       <Stack.Screen
         name="index"
         options={{
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
           headerTitle: () => {
             return (
               <Text
