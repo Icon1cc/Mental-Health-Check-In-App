@@ -10,7 +10,17 @@ interface ButtonProps {
 
 export default function Button({ text, onPress }: ButtonProps) {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable
+      style={({ pressed }) => {
+        return [
+          {
+            opacity: pressed ? 0.75 : 1,
+          },
+          styles.container,
+        ];
+      }}
+      onPress={onPress}
+    >
       <Text style={{ color: "white", fontSize: 16, letterSpacing: 2 }}>
         {text}
       </Text>
