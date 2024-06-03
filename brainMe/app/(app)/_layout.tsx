@@ -27,13 +27,13 @@ export default function Layout() {
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
-        headerShown: false,
       }}
     >
       <Tabs.Screen name="index" />
       <Tabs.Screen
         name="leaderboard"
         options={{
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Entypo name="bar-graph" color={color} size={24} />
           ),
@@ -42,6 +42,21 @@ export default function Layout() {
       <Tabs.Screen
         name="profile"
         options={{
+          headerTitle: () => (
+            <Text
+              style={{ fontFamily: "Pacifico", fontSize: 20, color: "white" }}
+            >
+              Profile
+            </Text>
+          ),
+          headerRight: () => (
+            <View style={{ marginRight: 17 }}>
+              <FontAwesome5 name="cog" color="white" size={24} />
+            </View>
+          ),
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="user-alt" color={color} size={24} />
           ),
