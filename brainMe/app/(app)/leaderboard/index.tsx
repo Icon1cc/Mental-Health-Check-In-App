@@ -29,24 +29,24 @@ function ListHeader({ username, score }: ListHeaderComponentProps) {
 export default function LeaderBoard() {
   // Logic in order to filter the data. INSERT HERE.
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <FlatList
-        data={DATA}
-        ListHeaderComponent={<ListHeader username="Mike L." score={0} />}
-        ListHeaderComponentStyle={{ marginBottom: 17 }}
-        ListEmptyComponent={<Text>No data</Text>}
-        ItemSeparatorComponent={() => <View style={{ height: 17 }} />}
-        contentContainerStyle={{ padding: 17 }}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => (
-          <PodiumBox
-            position={index + 1}
-            username={item.username}
-            score={item.score}
-          />
-        )}
-      />
-    </View>
+    <FlatList
+      data={DATA}
+      ListHeaderComponent={<ListHeader username="Mike L." score={0} />}
+      ListHeaderComponentStyle={{ marginBottom: 17 }}
+      ListEmptyComponent={<Text>No data</Text>}
+      ItemSeparatorComponent={() => <View style={{ height: 17 }} />}
+      contentContainerStyle={{ padding: 17 }}
+      style={{ flex: 1 }}
+      showsVerticalScrollIndicator={false}
+      keyExtractor={(item) => item.id}
+      contentInsetAdjustmentBehavior="automatic"
+      renderItem={({ item, index }) => (
+        <PodiumBox
+          position={index + 1}
+          username={item.username}
+          score={item.score}
+        />
+      )}
+    />
   );
 }
