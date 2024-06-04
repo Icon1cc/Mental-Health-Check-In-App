@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useAuth } from "@clerk/clerk-expo";
+import { Link } from "expo-router";
 import React from "react";
 
 export default function Home() {
@@ -7,14 +8,18 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Pressable
-        style={styles.button}
-        onPress={() => {
-          signOut();
-        }}
-      >
-        <Text>Home</Text>
-      </Pressable>
+      <Link href="/quizz" asChild>
+        <Pressable
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "red",
+            padding: 20,
+          }}
+        >
+          <Text>Start Quizz</Text>
+        </Pressable>
+      </Link>
     </View>
   );
 }

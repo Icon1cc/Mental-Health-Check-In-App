@@ -3,12 +3,20 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 // This mutation inserts a new user into the database.
-export const addUser = mutation({
+export const add = mutation({
   args: {
     username: v.string(),
+    ranking: v.number(),
+    gamesPlayed: v.number(),
+    points: v.number(),
+    completionRate: v.number(),
+    correctAnswers: v.number(),
+    wrongAnswers: v.number(),
   },
   handler: async (ctx, args) => {
-    await ctx.db.insert("user", { username: args.username });
+    const identity = await ctx.auth.getUserIdentity();
+    const { tokenIdentifier } = identity!;
+    await ctx.db.insert("user", { ...args, user_id: tokenIdentifier });
   },
 });
 

@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
 import { Redirect } from "expo-router";
-import { Tabs } from "expo-router";
+import { Tabs, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { Entypo, FontAwesome5 } from "@expo/vector-icons";
 import React, { useEffect } from "react";
@@ -9,13 +9,17 @@ import React, { useEffect } from "react";
 SplashScreen.preventAutoHideAsync();
 
 export default function Layout() {
+  // This hook provides information about the current route and the segments
+  const segments = useSegments();
+  console.log(segments);
+
   // This hook provides information about the user's authentication state.
   const { isLoaded, isSignedIn } = useUser();
 
-  /* Redirect to the welcome screen if the user is not signed in
+  // Redirect to the welcome screen if the user is not signed in
   if (!isSignedIn) {
     return <Redirect href={"/welcome"} />;
-  }*/
+  }
 
   // Hide the splash screen when the app is loaded
   useEffect(() => {
@@ -29,7 +33,18 @@ export default function Layout() {
         tabBarShowLabel: false,
       }}
     >
-      <Tabs.Screen name="index" />
+      <Tabs.Screen
+        name="(home)"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Entypo name="home" color={color} size={26} />
+          ),
+          tabBarStyle: {
+            display: segments.includes("quizz") ? "none" : "flex",
+          },
+        }}
+      />
       <Tabs.Screen
         name="leaderboard"
         options={{
