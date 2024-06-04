@@ -11,15 +11,14 @@ SplashScreen.preventAutoHideAsync();
 export default function Layout() {
   // This hook provides information about the current route and the segments
   const segments = useSegments();
-  console.log(segments);
 
   // This hook provides information about the user's authentication state.
   const { isLoaded, isSignedIn } = useUser();
 
-  // Redirect to the welcome screen if the user is not signed in
+  /* Redirect to the welcome screen if the user is not signed in
   if (!isSignedIn) {
     return <Redirect href={"/welcome"} />;
-  }
+  }*/
 
   // Hide the splash screen when the app is loaded
   useEffect(() => {
