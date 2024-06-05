@@ -31,7 +31,7 @@ export default function Question({
         <AnswersButton answer={answers[0]} correctAnswer={correctAnswer} />
         <AnswersButton answer={answers[1]} correctAnswer={correctAnswer} />
         <AnswersButton answer={answers[2]} correctAnswer={correctAnswer} />
-        <AnswersButton answer={answers[3]} correctAnswer={correctAnswer} />
+        <AnswersButton answer={correctAnswer} correctAnswer={correctAnswer} />
       </View>
     </View>
   );

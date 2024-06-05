@@ -2,34 +2,10 @@ import { View, FlatList, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useRef, useState, useEffect } from "react";
-import axios from "axios";
 
 import Question from "@/components/quizz/question";
 
 const url = "https://the-trivia-api.com/api/questions";
-
-const DATA = [
-  {
-    id: 1,
-    title: "Question 1",
-  },
-  {
-    id: 2,
-    title: "Question 2",
-  },
-  {
-    id: 3,
-    title: "Question 3",
-  },
-  {
-    id: 4,
-    title: "Question 4",
-  },
-  {
-    id: 5,
-    title: "Question 5",
-  },
-];
 
 function TimeBar() {
   return (
@@ -55,6 +31,7 @@ export default function Quizz() {
   // Get the safe area insets.
   const insets = useSafeAreaInsets();
 
+  // State to store the questions.
   const [data, setData] = useState([]);
 
   // Ref to the FlatList.
@@ -63,13 +40,20 @@ export default function Quizz() {
   // Fetch the questions.
   const fetchQuestions = async () => {
     try {
-      const params = {
-        limit: 5,
-        difficulty: "hard",
-        category: "science",
-      };
-      const response = await axios.get(`${url}`, { params });
-      console.log(response.data);
+      const params = new URLSearchParams({
+        limit: "5",
+        difficulties: "hard",
+        categories: "science",
+      });
+      const response = await fetch(`${url}?${params}`);
+      const data = await response.json();
+      setData(
+        data.map((question: any) => ({
+          question: question.question,
+          answers: question.incorrectAnswers,
+          correctAnswer: question.correctAnswer,
+        }))
+      );
     } catch (error) {
       console.error(error);
     }
@@ -100,24 +84,24 @@ export default function Quizz() {
       style={{
         flex: 1,
         paddingTop: insets.top + 17 * 2,
-        paddingBottom: insets.bottom,
+        paddingBottom: insets.bottom + 17 * 2,
       }}
     >
       <TimeBar />
       <FlatList
         ref={_FlatList}
-        data={DATA}
+        data={data}
         horizontal
         showsHorizontalScrollIndicator={false}
-        scrollEnabled={false}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
+        scrollEnabled={true}
+        keyExtractor={(item) => item.correctAnswer}
+        renderItem={({ item, index }) => (
           <Question
-            totalQuestions={DATA.length}
-            currentQuestion={item.id}
-            question="What is the capital of France?"
-            answers={["Paris", "London", "Berlin", "Madrid"]}
-            correctAnswer="Paris"
+            totalQuestions={data.length}
+            currentQuestion={index + 1}
+            question={item.question}
+            answers={item.answers}
+            correctAnswer={item.correctAnswer}
           />
         )}
       />
