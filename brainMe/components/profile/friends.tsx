@@ -41,7 +41,7 @@ export default function Friends({ numberFriends }: FriendsProps) {
           renderItem={({ item }) => (
             <View
               style={{
-                marginRight: -20,
+                marginRight: -15,
               }}
             >
               <ImageViewer size={50} />

@@ -21,7 +21,7 @@ export default function Welcome() {
   const [username, setUsername] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [pendingVerification, setPendingVerification] = useState(true);
+  const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
 
   // This hook provides information about the user's authentication state.
