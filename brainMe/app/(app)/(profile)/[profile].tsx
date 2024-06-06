@@ -4,7 +4,7 @@ import { useLocalSearchParams } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 
-import { useConvex } from "convex/react";
+import { useConvex, useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 
@@ -39,6 +39,20 @@ export default function Profile() {
     wrongAnswers: number;
     friends?: Id<"user">[];
   } | null>(null);
+
+  // Mutations.
+  const myUser = useQuery(api.user.myUser);
+  const update = useMutation(api.user.update);
+
+  // update list of friends.
+  const updateFriends = () => {
+    if (myUser) {
+      update({
+        friends: [...(myUser?.friends_ids as Id<"user">[]), _id as Id<"user">],
+        _id: myUser._id,
+      });
+    }
+  };
 
   useEffect(() => {
     const loadUser = async () => {

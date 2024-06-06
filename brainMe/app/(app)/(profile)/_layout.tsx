@@ -1,7 +1,6 @@
 import { View, Text, Pressable } from "react-native";
 import { FontAwesome5, AntDesign } from "@expo/vector-icons";
 import { Stack, Link } from "expo-router";
-
 import React from "react";
 
 import Colors from "@/constants/Colors";
@@ -18,7 +17,7 @@ export default function Layout() {
       <Stack.Screen
         name="profile"
         options={{
-          headerTitle: () => <HeaderTitle title="Profile" />,
+          headerTitle: () => <HeaderTitle title="Profile" color="white" />,
           headerRight: () => (
             <View style={{ marginRight: 17 }}>
               <FontAwesome5 name="cog" color="white" size={24} />
@@ -29,31 +28,20 @@ export default function Layout() {
       <Stack.Screen
         name="finder"
         options={{
-          headerTitle: () => {
-            return (
-              <Text
-                style={{
-                  fontFamily: "Pacifico",
-                  fontSize: 24,
-                  color: Colors.primary,
-                }}
-              >
-                Friends
-              </Text>
-            );
-          },
-          headerLeft: () => (
-            <View style={{ marginRight: 17 }}>
-              <Link href="/profile" asChild>
-                <Pressable>
-                  <AntDesign
-                    name="arrowleft"
-                    color={Colors.primary}
-                    size={24}
-                  />
-                </Pressable>
-              </Link>
-            </View>
+          headerLeft: () => <HeaderLeft towards="/profile" />,
+          headerTitle: () => (
+            <HeaderTitle title="Find Friends" color={Colors.primary} />
+          ),
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen
+        name="add-friend"
+        options={{
+          presentation: "modal",
+          headerLeft: () => <HeaderLeft towards="/finder" />,
+          headerTitle: () => (
+            <HeaderTitle title="Add Friend" color={Colors.primary} />
           ),
           headerTransparent: true,
         }}
@@ -61,16 +49,8 @@ export default function Layout() {
       <Stack.Screen
         name="[profile]"
         options={{
+          headerLeft: () => <HeaderLeft towards="/finder" />,
           headerTitle: "",
-          headerLeft: () => (
-            <View style={{ marginRight: 17 }}>
-              <Link href="/finder" asChild>
-                <Pressable>
-                  <AntDesign name="arrowleft" color={"white"} size={24} />
-                </Pressable>
-              </Link>
-            </View>
-          ),
           headerShadowVisible: false,
           headerTransparent: true,
         }}
@@ -80,10 +60,22 @@ export default function Layout() {
   );
 }
 
-function HeaderTitle({ title }: { title: string }) {
+function HeaderTitle({ title, color }: { title: string; color: string }) {
   return (
-    <Text style={{ fontFamily: "Pacifico", fontSize: 24, color: "white" }}>
+    <Text style={{ fontFamily: "Pacifico", fontSize: 24, color: `${color}` }}>
       {title}
     </Text>
+  );
+}
+
+function HeaderLeft({ towards }: { towards: "/finder" | "/profile" }) {
+  return (
+    <View style={{ marginRight: 17 }}>
+      <Link href={towards} asChild>
+        <Pressable>
+          <AntDesign name="arrowleft" color={"white"} size={24} />
+        </Pressable>
+      </Link>
+    </View>
   );
 }

@@ -11,7 +11,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import Colors from "@/constants/Colors";
 import FriendFinder from "@/components/profile/friend-finder";
 
-export default function Finder() {
+export default function AddFriend() {
   // Convex API.
   const convex = useConvex();
 
