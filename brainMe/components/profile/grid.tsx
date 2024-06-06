@@ -19,15 +19,15 @@ export default function Grid(props: GridProps) {
         <Stat
           number={props.rank}
           hashtag
-          description="World rank"
+          description="Leaderboard ranking"
           icon="star"
         />
         <Stat
           number={props.gamesPlayed}
-          description="Games played"
+          description="Quizz completed"
           icon="joystick"
         />
-        <Stat number={props.points} description="Points total" icon="coin" />
+        <Stat number={props.points} description="Total points" icon="coin" />
       </View>
       <View style={styles.grid}>
         <Stat

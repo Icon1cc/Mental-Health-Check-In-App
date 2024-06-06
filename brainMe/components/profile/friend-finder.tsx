@@ -3,10 +3,12 @@ import { Link } from "expo-router";
 import React from "react";
 
 import ImageViewer from "../imageViewer";
+import { Id } from "@/convex/_generated/dataModel";
 
 interface FriendFinderProps {
   username: string;
   points: number;
+  _id: Id<"user">;
 }
 
 export default function FriendFinder(props: FriendFinderProps) {
@@ -14,7 +16,7 @@ export default function FriendFinder(props: FriendFinderProps) {
     <Link
       href={{
         pathname: "/(app)/(profile)/[profile]",
-        params: { username: props.username },
+        params: { _id: props._id as string },
       }}
       asChild
     >

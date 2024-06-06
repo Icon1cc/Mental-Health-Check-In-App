@@ -5,39 +5,20 @@ import React from "react";
 import Colors from "@/constants/Colors";
 import ImageViewer from "@/components/imageViewer";
 
-const DATA = [
-  {
-    id: "1",
-  },
-  {
-    id: "2",
-  },
-  {
-    id: "3",
-  },
-  {
-    id: "4",
-  },
-  {
-    id: "5",
-  },
-  {
-    id: "6",
-  },
-];
+interface FootFriendsProps {
+  friends: string[];
+}
 
-interface FootFriendsProps {}
-
-export default function FootFriends(props: FootFriendsProps) {
-  // router.
+export default function FootFriends({ friends }: FootFriendsProps) {
   const router = useRouter();
+  const friendsFormatted = friends ? friends : [];
   return (
     <View style={{ gap: 5 }}>
-      <Text style={styles.friends}>Friends ({6})</Text>
+      <Text style={styles.friends}>Friends ({friendsFormatted.length})</Text>
       <View style={styles.container}>
         <FlatList
-          data={DATA}
-          keyExtractor={(item) => item.id}
+          data={friendsFormatted}
+          keyExtractor={(item) => item}
           horizontal
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
@@ -45,13 +26,15 @@ export default function FootFriends(props: FootFriendsProps) {
             <View
               style={{
                 marginRight: -15,
+                borderWidth: 2,
+                borderColor: "white",
+                borderRadius: 50,
               }}
             >
               <ImageViewer size={50} />
             </View>
           )}
         />
-
         <Pressable
           style={styles.button}
           onPress={() => router.push("/(app)/(profile)/finder")}
@@ -75,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   button: {
-    width: 120,
+    flex: 1,
     height: 40,
     alignItems: "center",
     justifyContent: "center",

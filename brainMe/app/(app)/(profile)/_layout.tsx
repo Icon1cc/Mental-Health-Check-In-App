@@ -61,7 +61,6 @@ export default function Layout() {
       <Stack.Screen
         name="[profile]"
         options={{
-          animationTypeForReplace: "push",
           headerTitle: "",
           headerLeft: () => (
             <View style={{ marginRight: 17 }}>
@@ -76,6 +75,7 @@ export default function Layout() {
           headerTransparent: true,
         }}
       />
+      <Stack.Screen name="chats" options={{ headerShown: false }} />
     </Stack>
   );
 }

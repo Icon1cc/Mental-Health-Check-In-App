@@ -25,6 +25,7 @@ export default function Finder() {
       _creationTime: number;
       user_id: string;
       username: string;
+      name: string;
       ranking: number;
       gamesPlayed: number;
       points: number;
@@ -39,7 +40,7 @@ export default function Finder() {
   const searchFilterFunction = (text: string) => {
     if (text) {
       const newData = data.filter((item) => {
-        const itemData = item.username.toUpperCase();
+        const itemData = item.name.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -72,6 +73,8 @@ export default function Finder() {
       <StatusBar style="dark" />
       <Stack.Screen
         options={{
+          headerTransparent: true,
+          headerBlurEffect: "light",
           headerSearchBarOptions: {
             placeholder: "Search for friends",
             autoFocus: true,
@@ -91,7 +94,11 @@ export default function Finder() {
         contentContainerStyle={{ paddingHorizontal: 17 }}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <FriendFinder username={item.username} points={item.points} />
+          <FriendFinder
+            _id={item._id}
+            username={item.name}
+            points={item.points}
+          />
         )}
       />
     </View>
