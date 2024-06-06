@@ -20,9 +20,21 @@ export const add = mutation({
   },
 });
 
-// This query returns all profiles.
-export const getUser = query({
+// This query retrieves all users from the database
+export const collect = query({
   handler: async (ctx) => {
     return await ctx.db.query("user").collect();
+
+    /*return Promise.all(
+      users.map(async (user) => {
+        if (user.file) {
+          const url = await ctx.storage.getUrl(user.avatar);
+          if (url) {
+            return { ...user, avatar: url };
+          }
+          return user;
+        }
+      })
+    );*/
   },
 });

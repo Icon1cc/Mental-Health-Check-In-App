@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 import React from "react";
 
 import ImageViewer from "../imageViewer";
@@ -9,6 +10,7 @@ interface FriendFinderProps {
 }
 
 export default function FriendFinder(props: FriendFinderProps) {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <ImageViewer size={40} />
@@ -20,21 +22,22 @@ export default function FriendFinder(props: FriendFinderProps) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
-    backgroundColor: "white",
-    borderRadius: 12,
+    paddingVertical: 12,
+    borderBottomWidth: 0.75,
+    borderBottomColor: "lightgray",
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 17,
     gap: 10,
   },
   username: {
     flex: 1,
     fontFamily: "NiveauGroteskBold",
     fontSize: 20,
+    color: "rgb(50, 50, 50)",
   },
   points: {
     fontFamily: "NiveauGroteskLight",
     fontSize: 16,
+    color: "rgb(50, 50, 50)",
   },
 });

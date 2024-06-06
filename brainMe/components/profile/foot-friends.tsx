@@ -54,7 +54,7 @@ export default function FootFriends(props: FootFriendsProps) {
 
         <Pressable
           style={styles.button}
-          onPress={() => router.push("/(app)/profile/finder")}
+          onPress={() => router.push("/(app)/(profile)/finder")}
         >
           <Text style={styles.buttonText}>Find friends</Text>
         </Pressable>
@@ -64,15 +64,15 @@ export default function FootFriends(props: FootFriendsProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
   friends: {
     fontFamily: "NiveauGroteskBold",
     fontSize: 20,
     color: Colors.primary,
+  },
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   button: {
     width: 120,

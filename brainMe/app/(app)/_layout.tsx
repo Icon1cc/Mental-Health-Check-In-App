@@ -1,7 +1,5 @@
-import { View, Text } from "react-native";
 import { useUser } from "@clerk/clerk-expo";
-import { Redirect } from "expo-router";
-import { Tabs, useSegments } from "expo-router";
+import { Redirect, Tabs, useSegments } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { Entypo, FontAwesome5 } from "@expo/vector-icons";
 import React, { useEffect } from "react";
@@ -30,12 +28,12 @@ export default function Layout() {
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
+        headerShown: false,
       }}
     >
       <Tabs.Screen
-        name="(home)"
+        name="(index)"
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Entypo name="home" color={color} size={26} />
           ),
@@ -45,18 +43,16 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="leaderboard"
+        name="(leaderboard)"
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => (
             <Entypo name="bar-graph" color={color} size={24} />
           ),
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="(profile)"
         options={{
-          headerShown: false,
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="user-alt" color={color} size={24} />
           ),

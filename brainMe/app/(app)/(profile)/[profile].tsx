@@ -7,28 +7,11 @@ import Grid from "@/components/profile/grid";
 import FootButtons from "@/components/profile/foot-buttons";
 import FootFriends from "@/components/profile/foot-friends";
 
-const DATA = [
-  {
-    id: "1",
-  },
-  {
-    id: "2",
-  },
-  {
-    id: "3",
-  },
-  {
-    id: "4",
-  },
-  {
-    id: "5",
-  },
-  {
-    id: "6",
-  },
-];
-
 export default function Profile() {
+  return <ProfileLayout />;
+}
+
+export function ProfileLayout({ myUser }: { myUser?: boolean }) {
   return (
     <View style={styles.container}>
       <View style={styles.image}>
@@ -37,7 +20,7 @@ export default function Profile() {
       <Header title="Jessica Richman" subtitle="@Rookie123" />
       <Grid />
       <View style={{ flex: 1 }} />
-      <FootButtons onPressFollow={() => {}} />
+      {myUser ? <FootFriends /> : <FootButtons onPressFollow={() => {}} />}
     </View>
   );
 }
@@ -45,7 +28,6 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: "relative",
     marginTop: 51 + 17,
     backgroundColor: "white",
     borderTopRightRadius: 30,
