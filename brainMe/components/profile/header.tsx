@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
+import Colors from "@/constants/Colors";
+
 interface HeaderProps {
   title: string;
   subtitle: string;
@@ -19,9 +21,11 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "NiveauGroteskBold",
     fontSize: 24,
+    color: Colors.primary,
   },
   subtitle: {
     fontFamily: "NiveauGroteskLight",
     fontSize: 16,
+    color: Colors.primary,
   },
 });

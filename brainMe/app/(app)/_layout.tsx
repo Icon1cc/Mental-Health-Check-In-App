@@ -56,21 +56,7 @@ export default function Layout() {
       <Tabs.Screen
         name="profile"
         options={{
-          headerTitle: () => (
-            <Text
-              style={{ fontFamily: "Pacifico", fontSize: 20, color: "white" }}
-            >
-              Profile
-            </Text>
-          ),
-          headerRight: () => (
-            <View style={{ marginRight: 17 }}>
-              <FontAwesome5 name="cog" color="white" size={24} />
-            </View>
-          ),
-          headerStyle: {
-            backgroundColor: "transparent",
-          },
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="user-alt" color={color} size={24} />
           ),

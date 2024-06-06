@@ -1,10 +1,32 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
-import ImageViewer from "@/components/imageViewer";
 
+import ImageViewer from "@/components/imageViewer";
 import Header from "@/components/profile/header";
-import Friends from "@/components/profile/friends";
 import Grid from "@/components/profile/grid";
+import FootButtons from "@/components/profile/foot-buttons";
+import FootFriends from "@/components/profile/foot-friends";
+
+const DATA = [
+  {
+    id: "1",
+  },
+  {
+    id: "2",
+  },
+  {
+    id: "3",
+  },
+  {
+    id: "4",
+  },
+  {
+    id: "5",
+  },
+  {
+    id: "6",
+  },
+];
 
 export default function Profile() {
   return (
@@ -14,7 +36,8 @@ export default function Profile() {
       </View>
       <Header title="Jessica Richman" subtitle="@Rookie123" />
       <Grid />
-      <Friends numberFriends={6} />
+      <View style={{ flex: 1 }} />
+      <FootButtons onPressFollow={() => {}} />
     </View>
   );
 }
@@ -28,7 +51,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
     paddingHorizontal: 17,
-    paddingTop: 51,
+    paddingVertical: 51,
     gap: 34,
   },
   image: {

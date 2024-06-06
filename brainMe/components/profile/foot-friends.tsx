@@ -1,6 +1,9 @@
-import { View, Text, Pressable, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, Pressable, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
 import React from "react";
-import ImageViewer from "../imageViewer";
+
+import Colors from "@/constants/Colors";
+import ImageViewer from "@/components/imageViewer";
 
 const DATA = [
   {
@@ -23,14 +26,14 @@ const DATA = [
   },
 ];
 
-interface FriendsProps {
-  numberFriends: number;
-}
+interface FootFriendsProps {}
 
-export default function Friends({ numberFriends }: FriendsProps) {
+export default function FootFriends(props: FootFriendsProps) {
+  // router.
+  const router = useRouter();
   return (
     <View style={{ gap: 5 }}>
-      <Text style={styles.title}>Friends ({numberFriends})</Text>
+      <Text style={styles.friends}>Friends ({6})</Text>
       <View style={styles.container}>
         <FlatList
           data={DATA}
@@ -48,17 +51,12 @@ export default function Friends({ numberFriends }: FriendsProps) {
             </View>
           )}
         />
+
         <Pressable
-          style={({ pressed }) => {
-            return [
-              {
-                opacity: pressed ? 0.75 : 1,
-              },
-              styles.button,
-            ];
-          }}
+          style={styles.button}
+          onPress={() => router.push("/(app)/profile/finder")}
         >
-          <Text style={styles.text}>Find friends</Text>
+          <Text style={styles.buttonText}>Find friends</Text>
         </Pressable>
       </View>
     </View>
@@ -71,9 +69,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  title: {
+  friends: {
     fontFamily: "NiveauGroteskBold",
     fontSize: 20,
+    color: Colors.primary,
   },
   button: {
     width: 120,
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#839788",
     borderRadius: 12,
   },
-  text: {
+  buttonText: {
     fontFamily: "NiveauGroteskBold",
     fontSize: 16,
     color: "white",
