@@ -3,29 +3,47 @@ import React from "react";
 
 import Stat from "./stat";
 
-export default function Grid() {
+interface GridProps {
+  rank: number;
+  gamesPlayed: number;
+  points: number;
+  completionRate: number;
+  correctAnswers: number;
+  wrongAnswers: number;
+}
+
+export default function Grid(props: GridProps) {
   return (
     <View style={{ gap: 17 }}>
       <View style={styles.grid}>
-        <Stat number={123} hashtag description="World rank" icon="star" />
-        <Stat number={12} description="Games played" icon="joystick" />
-        <Stat number={1084} description="Points total" icon="coin" />
+        <Stat
+          number={props.rank}
+          hashtag
+          description="World rank"
+          icon="star"
+        />
+        <Stat
+          number={props.gamesPlayed}
+          description="Games played"
+          icon="joystick"
+        />
+        <Stat number={props.points} description="Points total" icon="coin" />
       </View>
       <View style={styles.grid}>
         <Stat
-          number={123}
+          number={props.completionRate}
           percentage
           description="Completion rate"
           icon="poition"
         />
         <Stat
-          number={12}
+          number={props.correctAnswers}
           percentage
           description="Correct answers"
           icon="target"
         />
         <Stat
-          number={12}
+          number={props.wrongAnswers}
           percentage
           description="Incorrect answers"
           icon="skull"

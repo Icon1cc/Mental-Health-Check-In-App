@@ -66,13 +66,12 @@ export default function Finder() {
       style={{
         flex: 1,
         backgroundColor: "white",
+        paddingTop: insets.top + 17 * 3,
       }}
     >
       <StatusBar style="dark" />
       <Stack.Screen
         options={{
-          headerTransparent: true,
-          headerBlurEffect: "light",
           headerSearchBarOptions: {
             placeholder: "Search for friends",
             autoFocus: true,
@@ -92,18 +91,7 @@ export default function Finder() {
         contentContainerStyle={{ paddingHorizontal: 17 }}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <Link
-            key={item._id.toString()}
-            href={{
-              pathname: "/(profile)/[profile]",
-              params: { profile: item.username },
-            }}
-            asChild
-          >
-            <Pressable>
-              <FriendFinder username={item.username} points={item.points} />;
-            </Pressable>
-          </Link>
+          <FriendFinder username={item.username} points={item.points} />
         )}
       />
     </View>

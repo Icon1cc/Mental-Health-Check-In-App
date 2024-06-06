@@ -3,6 +3,10 @@ import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import React, { useEffect, useState } from "react";
 
+// Database imports.
+import { useMutation, useConvex } from "convex/react";
+import { api } from "@/convex/_generated/api";
+
 // These imports are required to use the components in this file.
 import Header from "@/components/auth/header";
 import Input from "@/components/auth/input";
@@ -27,6 +31,10 @@ enum Strategy {
 }
 
 export default function Welcome() {
+  // Convex API.
+  const convex = useConvex();
+  const add = useMutation(api.user.add);
+
   // This hook provides the safe area insets, which allows you to avoid the status bar.
   const insets = useSafeAreaInsets();
 
@@ -62,9 +70,12 @@ export default function Welcome() {
     }[strategy];
 
     try {
+      console.log("OAuth start");
       const { createdSessionId, setActive } = await selectedAuth();
+      console.log("The created session", createdSessionId);
 
       if (createdSessionId) {
+        console.log("OAuth success", createdSessionId);
         setActive!({ session: createdSessionId });
       }
     } catch (err) {
@@ -93,8 +104,19 @@ export default function Welcome() {
 
   // This effect redirects the user to the home screen if they are already signed in.
   // It runs when the user's authentication state changes.
+  // This effect redirects the user to the home screen if they are already signed in.
+  // It runs when the user's authentication state changes.
   useEffect(() => {
+    const checkUser = async () => {
+      const myUser = await convex.query(api.user.myUser);
+      if (!myUser) {
+        add({
+          username: "Rookie",
+        });
+      }
+    };
     if (isLoaded && isSignedIn) {
+      checkUser();
       router.push("/");
     }
   }, [isLoaded, isSignedIn]);
@@ -144,7 +166,7 @@ export default function Welcome() {
           />
         </View>
         <Button text="LOGIN" onPress={onSignInPress} />
-        <Footer text="Already have an account?" link="Sign up" />
+        <Footer text="Don't have an account yet?" link="Sign up" />
       </ScrollView>
     </View>
   );

@@ -1,5 +1,5 @@
-import { Text, View, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import { Text, Pressable, StyleSheet } from "react-native";
+import { Link } from "expo-router";
 import React from "react";
 
 import ImageViewer from "../imageViewer";
@@ -10,13 +10,20 @@ interface FriendFinderProps {
 }
 
 export default function FriendFinder(props: FriendFinderProps) {
-  const router = useRouter();
   return (
-    <View style={styles.container}>
-      <ImageViewer size={40} />
-      <Text style={styles.username}>{props.username}</Text>
-      <Text style={styles.points}>{props.points} points</Text>
-    </View>
+    <Link
+      href={{
+        pathname: "/(app)/(profile)/[profile]",
+        params: { username: props.username },
+      }}
+      asChild
+    >
+      <Pressable style={styles.container}>
+        <ImageViewer size={40} />
+        <Text style={styles.username}>{props.username}</Text>
+        <Text style={styles.points}>{props.points} points</Text>
+      </Pressable>
+    </Link>
   );
 }
 

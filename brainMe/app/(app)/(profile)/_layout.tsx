@@ -61,7 +61,19 @@ export default function Layout() {
       <Stack.Screen
         name="[profile]"
         options={{
-          headerTitle: () => <HeaderTitle title="Profile" />,
+          animationTypeForReplace: "push",
+          headerTitle: "",
+          headerLeft: () => (
+            <View style={{ marginRight: 17 }}>
+              <Link href="/finder" asChild>
+                <Pressable>
+                  <AntDesign name="arrowleft" color={"white"} size={24} />
+                </Pressable>
+              </Link>
+            </View>
+          ),
+          headerShadowVisible: false,
+          headerTransparent: true,
         }}
       />
     </Stack>

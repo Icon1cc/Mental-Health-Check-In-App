@@ -1,7 +1,13 @@
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
+import { useUser, useSignUp } from "@clerk/clerk-expo";
 import React, { useEffect, useState } from "react";
+
+// Database imports.
+import { useQuery, useMutation, useConvex } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 
 // These imports are required to use the components in this file.
 import Header from "@/components/auth/header";
@@ -9,12 +15,13 @@ import Input from "@/components/auth/input";
 import Footer from "@/components/auth/footer";
 import Button from "@/components/button";
 
-// This import is required to use the user hook.
-import { useUser, useSignUp } from "@clerk/clerk-expo";
-
 export default function Welcome() {
   // This hook provides the safe area insets, which allows you to avoid the status bar.
   const insets = useSafeAreaInsets();
+
+  // Convex API.
+  const convex = useConvex();
+  const add = useMutation(api.user.add);
 
   // This hook provides functions and state for signing up.
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -73,7 +80,16 @@ export default function Welcome() {
   // This effect redirects the user to the home screen if they are already signed in.
   // It runs when the user's authentication state changes.
   useEffect(() => {
+    const checkUser = async () => {
+      const myUser = await convex.query(api.user.myUser);
+      if (!myUser) {
+        add({
+          username: "Rookie",
+        });
+      }
+    };
     if (isLoaded && isSignedIn) {
+      checkUser();
       router.push("/");
     }
   }, [isLoaded, isSignedIn]);

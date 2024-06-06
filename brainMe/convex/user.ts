@@ -6,17 +6,32 @@ import { v } from "convex/values";
 export const add = mutation({
   args: {
     username: v.string(),
-    ranking: v.number(),
-    gamesPlayed: v.number(),
-    points: v.number(),
-    completionRate: v.number(),
-    correctAnswers: v.number(),
-    wrongAnswers: v.number(),
   },
   handler: async (ctx, args) => {
     const identity = await ctx.auth.getUserIdentity();
     const { tokenIdentifier } = identity!;
-    await ctx.db.insert("user", { ...args, user_id: tokenIdentifier });
+    await ctx.db.insert("user", {
+      ...args,
+      ranking: 0,
+      gamesPlayed: 0,
+      points: 0,
+      completionRate: 0,
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      user_id: tokenIdentifier,
+    });
+  },
+});
+
+// This query returns your user from the database
+export const myUser = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    const { tokenIdentifier } = identity!;
+    return await ctx.db
+      .query("user")
+      .filter((q) => q.eq(q.field("user_id"), tokenIdentifier))
+      .unique();
   },
 });
 
