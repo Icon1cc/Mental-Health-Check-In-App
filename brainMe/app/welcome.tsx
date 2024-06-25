@@ -65,8 +65,6 @@ export default function Welcome() {
       console.log("OAuth start");
       const { createdSessionId, setActive, signIn, signUp } =
         await selectedAuth();
-      console.log("The created session", createdSessionId);
-
       if (createdSessionId) {
         console.log("OAuth success", createdSessionId);
         setActive!({ session: createdSessionId });

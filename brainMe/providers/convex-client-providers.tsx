@@ -3,9 +3,7 @@ import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ConvexReactClient } from "convex/react";
 import * as SecureStore from "expo-secure-store"; // Securely store tokens in the keychain of the device.
 
-const convexUrl = process.env.EXPO_PUBLIC_CONVEX_URL!;
-const convex = new ConvexReactClient(convexUrl);
-const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!);
 
 const tokenCache = {
   // Cache the Clerk JWT in memory so we don't have to fetch it from the keychain again.
@@ -34,7 +32,7 @@ export const ConvexClientProvider = ({
 }: ConvexClientProviderProps) => {
   return (
     <ClerkProvider
-      publishableKey={CLERK_PUBLISHABLE_KEY}
+      publishableKey={"pk_test_dG9wcy1yYXZlbi03OC5jbGVyay5hY2NvdW50cy5kZXYk"}
       tokenCache={tokenCache}
     >
       <ConvexProviderWithClerk useAuth={useAuth} client={convex}>

@@ -24,7 +24,7 @@ export default function Layout() {
 
 function HeaderTitle({ title }: { title: string }) {
   return (
-    <Text style={{ fontFamily: "Pacifico", fontSize: 20, color: "white" }}>
+    <Text style={{ fontFamily: "Pacifico", fontSize: 24, color: "white" }}>
       {title}
     </Text>
   );

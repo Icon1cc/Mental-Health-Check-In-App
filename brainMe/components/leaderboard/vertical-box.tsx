@@ -7,23 +7,34 @@ interface VerticalBoxProps {
   position: number;
   username: string;
   score: number;
-  top?: boolean;
+  color: string;
 }
 
 export default function VerticalBox({
   position,
   username,
   score,
-  top,
+  first,
+  color,
 }: VerticalBoxProps) {
-  const width = top ? 125 : 100;
-  const height = top ? 200 : 175;
-  const size = top ? 90 : 60;
-  const fontSize = top ? 24 : 20;
+  const size = first ? 90 : 60;
+  const fontSize = first ? 24 : 20;
+
   return (
-    <Pressable style={[styles.box, { width: width, height: height }]}>
+    <Pressable
+      style={
+        position === 1
+          ? {
+              ...styles.box,
+              backgroundColor: color,
+              borderTopStartRadius: 30,
+              borderBottomStartRadius: 30,
+            }
+          : styles.box
+      }
+    >
       <Text style={{ fontFamily: "NiveauGroteskBold", fontSize: fontSize }}>
-        #{position}
+        {position}
       </Text>
       <ImageViewer size={size} />
       <Text style={{ fontFamily: "NiveauGroteskBold", fontSize: 20 }}>
@@ -38,10 +49,19 @@ export default function VerticalBox({
 
 const styles = StyleSheet.create({
   box: {
+    width: 100,
+    height: 175,
     alignItems: "center",
     justifyContent: "center",
     gap: 5,
-    borderRadius: 12,
-    backgroundColor: "white",
+  },
+  box1: {
+    backgroundColor: "#EEE0CB",
+  },
+  box2: {
+    backgroundColor: "#839788",
+  },
+  box3: {
+    backgroundColor: "#BAA898",
   },
 });

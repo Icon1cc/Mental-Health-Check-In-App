@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import React from "react";
 
 import VerticalBox from "@/components/leaderboard/vertical-box";
@@ -12,15 +12,9 @@ interface ListHeaderComponentProps {
 
 function ListHeader({ username, score }: ListHeaderComponentProps) {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "flex-end",
-        justifyContent: "space-between",
-      }}
-    >
+    <View style={styles.header}>
       <VerticalBox position={2} username={username} score={score} />
-      <VerticalBox position={1} username={username} score={score} top />
+      <VerticalBox position={1} username={username} score={score} first />
       <VerticalBox position={3} username={username} score={score} />
     </View>
   );
@@ -29,24 +23,42 @@ function ListHeader({ username, score }: ListHeaderComponentProps) {
 export default function LeaderBoard() {
   // Logic in order to filter the data. INSERT HERE.
   return (
-    <FlatList
-      data={DATA}
-      ListHeaderComponent={<ListHeader username="Mike L." score={0} />}
-      ListHeaderComponentStyle={{ marginBottom: 17 }}
-      ListEmptyComponent={<Text>No data</Text>}
-      ItemSeparatorComponent={() => <View style={{ height: 17 }} />}
-      contentContainerStyle={{ padding: 17 }}
-      style={{ flex: 1 }}
-      showsVerticalScrollIndicator={false}
-      keyExtractor={(item) => item.id}
-      contentInsetAdjustmentBehavior="automatic"
-      renderItem={({ item, index }) => (
-        <PodiumBox
-          position={index + 1}
-          username={item.username}
-          score={item.score}
-        />
-      )}
-    />
+    <View style={{ flex: 1 }}>
+      <ListHeader username="Mike L." score={0} />
+      <FlatList
+        data={DATA}
+        ListEmptyComponent={<Text>No data</Text>}
+        style={styles.listContainer}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item) => item.id}
+        contentInsetAdjustmentBehavior="automatic"
+        renderItem={({ item, index }) => (
+          <PodiumBox
+            position={index + 4}
+            username={item.username}
+            score={item.score}
+          />
+        )}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    padding: 17,
+  },
+  listContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    borderStartStartRadius: 30,
+    borderStartEndRadius: 30,
+    padding: 17,
+  },
+});

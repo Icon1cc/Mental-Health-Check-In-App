@@ -16,7 +16,7 @@ export default function HorizontalBox({
 }: HorizontalBoxProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.position}>#{position}</Text>
+      <Text style={styles.position}>{position}</Text>
       <View style={styles.userContainer}>
         <ImageViewer size={40} />
         <Text style={styles.position}>{username}</Text>
@@ -31,10 +31,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 17,
-    height: 60,
-    borderRadius: 12,
-    paddingHorizontal: 17,
-    backgroundColor: "white",
+    paddingVertical: 15,
+    borderBottomColor: "lightgrey",
+    borderBottomWidth: 1,
   },
   position: {
     fontFamily: "NiveauGroteskBold",

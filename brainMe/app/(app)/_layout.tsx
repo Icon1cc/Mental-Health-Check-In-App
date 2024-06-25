@@ -24,6 +24,7 @@ export default function Layout() {
       SplashScreen.hideAsync();
     }
   }, [isLoaded]);
+
   return (
     <Tabs
       screenOptions={{
